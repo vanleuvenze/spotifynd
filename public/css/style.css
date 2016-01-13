@@ -141,7 +141,7 @@ div.playlist-img {
   transition: all .3s ease-in-out;
   outline: 0;
   color: #F8F8FF;
-  background-color: #00CC66;
+  background-color: #00bcd4;
   border: 0px ;
   width: 240px;
   height: 50px;
@@ -170,7 +170,6 @@ div.playlist-img {
 .learn {
     font-size: 23px;
     color: #F8F8FF;
-    text-decoration: underline;
     text-shadow: 2px 2px #000000;
 }
 
@@ -181,7 +180,7 @@ div.playlist-img {
     padding: 100px 0;
     text-align: center;
     color: #fff;
-    background: url('https://images.unsplash.com/photo-1445810694374-0a94739e4a03?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=75e4e2d57b0f4ae0843bb15002118302') no-repeat center center fixed;
+    background: url('http://pameladennisphd.com/wp-content/uploads/2015/03/Car-Highway-BW-e1426539685392.jpg') no-repeat center center fixed;
     background-color: #000;
     -webkit-background-size: cover;
     -moz-background-size: cover;

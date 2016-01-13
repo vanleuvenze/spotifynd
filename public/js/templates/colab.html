@@ -1,0 +1,8 @@
+<div>
+  <form ng-submit='addMessage({text: input.text, from: input.name})'>
+    <input type='text' ng-model='input.name' placeholder='name'><input type='text' ng-model='input.text' placeholder='message'><input type='submit' text='submit'>
+  </form>
+  <div ng-repeat="message in messages">
+    <p>{{message.from}}: {{message.text}}</p>
+  </div>
+</div>
