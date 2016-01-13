@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(session({secret: '1234567890QWERTY'}));
 
 require('./routers/router.js')(app, express);
-require('./models/dbroutes.js')(app, express);
+//require('./models/dbroutes.js')(app, express);
 
 app.use(express.static(__dirname+'/../public'));
 

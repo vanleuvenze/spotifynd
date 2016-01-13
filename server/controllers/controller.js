@@ -82,7 +82,7 @@ module.exports = {
   // Method: GET
   // Route : /activities/*'
   fetchCityData: function(req, res, next) {
-    var cityState = req.url.split('/')[2];
+    var cityState = req.url.split('/')[3];
     return request('https://api.foursquare.com/v2/venues/explore?client_id='+key.API+'&client_secret='+key.SECRET+'&v=20130815&near='+cityState+'&venuePhotos=1', function(err, response, body) {
       // prevent server crashing when responseObj is undefined
       if (!err && JSON.parse(body).meta.code === 200) { 
