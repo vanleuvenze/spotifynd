@@ -1,5 +1,6 @@
-# sentimentalsoymilk
-Itinerary manager
+# Spotifynd
+
+Find a spot to travel
 
 1. npm install
 2. bower install

@@ -1,16 +1,16 @@
 {
-  "name": "Greenfield",
+  "name": "spotifynd",
   "description": "Itinerary",
   "main": "index.js",
   "authors": [
-    "Justin, Tessa, Liza, Josh"
+    "Justin, Tessa, Liza, Josh, Devin, Dan, Zach, Marlon"
   ],
   "license": "MIT",
   "private": true,
   "keywords": [
     "angular"
   ],
-  "homepage": "https://github.com/sentimentalsoymilk/sentimentalsoymilk",
+  "homepage": "https://github.com/fearlessgerbil/spotifynd",
   "moduleType": [],
   "ignore": [
     "**/.*",

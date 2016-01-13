@@ -1,7 +1,7 @@
 {
-  "name": "greenfield",
+  "name": "spotifynd",
   "version": "1.0.0",
-  "description": "itinerary generator",
+  "description": "create a travel playlist",
   "main": "server.js",
   "scripts": {
     "test": "test",
@@ -11,7 +11,7 @@
   "keywords": [
     "angular"
   ],
-  "author": "Tessa, Justin, Josh, Liza",
+  "author": "Tessa, Justin, Josh, Liza, Devin, Dan, Zach, Marlon",
   "license": "MIT",
   "dependencies": {
     "async": "^1.5.2",
