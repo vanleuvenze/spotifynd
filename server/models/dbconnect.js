@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoURI = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://soymilk:soymilk@ds039125.mongolab.com:39125/soymilk';
+mongoURI = process.env.CUSTOMCONNSTR_MONGOLAB_URI_TEST || 'mongodb://localhost/spotifynd';
 mongoose.connect(mongoURI);
 
 var db = mongoose.connection;
