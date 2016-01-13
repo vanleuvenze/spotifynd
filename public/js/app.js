@@ -42,7 +42,7 @@ angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app
     // single trip page
     .when('/message', {
       templateUrl: './js/templates/colab.html',
-      controller: 'messageController'
+      controller: 'CreateTripController'
     })
     .otherwise('/');
 });
