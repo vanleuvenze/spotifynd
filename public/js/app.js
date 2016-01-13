@@ -6,7 +6,7 @@
 // app.services loads all factory/service functionality
 // app.mytrips loads myTrips controller
 // ngRoute is for angular routing
-angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', 'ngRoute'])
+angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', ,'app.message', 'ngRoute'])
 
 
 .config(function ($routeProvider) {
@@ -41,9 +41,9 @@ angular.module('app', ['app.auth', 'app.trip', 'app.landing', 'app.create', 'app
       templateUrl: './js/templates/splash.html',
     })
     // single trip page
-    .when('/trip/:id', {
-      templateUrl: './js/templates/tripView.html',
-      controller: 'TripController'
+    .when('/message', {
+      templateUrl: './js/templates/colab.html',
+      controller: 'messageController'
     })
     .otherwise('/');
 });
