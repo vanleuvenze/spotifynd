@@ -214,3 +214,10 @@ body, html {
 .vote {
   font-size: 30px;
 }
+
+.messageCard {
+  width: 25vw;
+  height: 70vh;
+  overflow-y: auto;
+}
+
