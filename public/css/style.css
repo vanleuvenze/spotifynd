@@ -219,7 +219,7 @@ body, html {
 }
 
 .messageCard {
-  height: 87vh;
+  height: 77vh;
   overflow-y: auto;
 }
 .messageInput {

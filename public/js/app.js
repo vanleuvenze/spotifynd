@@ -7,7 +7,7 @@
 // app.mytrips loads myTrips controller
 // ngRoute is for angular routing
 angular.module('app', ['firebase', 'app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', ,'app.message', 'ngRoute', 'ngMaterial', 'ngAria','luegg.directives'])
-.constant('FIREBASE_URI', "https://spotyfind.firebaseio.com/")
+
 .config(function ($routeProvider) {
   $routeProvider
     // landing page
@@ -40,7 +40,7 @@ angular.module('app', ['firebase', 'app.auth', 'app.trip', 'app.landing', 'app.c
       templateUrl: './js/templates/splash.html',
     })
     // single trip page
-    .when('/message', {
+    .when('/room', {
       templateUrl: './js/templates/colab.html',
       controller: 'CreateTripController'
     })
