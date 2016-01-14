@@ -1,76 +1,82 @@
-<div layout="row">
-  <md-card class='messageCard' scroll-glue flex>
-    <md-card-header>
-      <h5>Messages:</h5>
-    </md-card-header>
-    <md-card-content class='messageCardDiv'>
-        <div ng-repeat="message in messages" >
-          <p>{{message.from}}: {{message.text}}</p>
-        </div>
-    <md-card-footer>
-      <p></p>
-      <p></p>
-      <form class='messageInput' ng-submit="addMessage({text: input.text, from: input.name}); input.text = '';" >
-        <md-input-container md-no-float='true'>
-          <input type='text' ng-model='input.name' placeholder='name'>
-        </md-input-container>
-        <md-input-container >
-          <input type='text' ng-model='input.text' placeholder='message'>
-          <input type="submit" style="position: absolute; left: -9999px"/>
-        </md-input-container>
-      </form>
-    </md-card-footer>
+<div ng-init="addRoom()" layout="column">
+  <md-card flex>
+    <md-card-content>
+      <p>Invite your Friends!: http://www.Spotifynd.com/{{roomId}}</p>
     </md-card-content>
   </md-card>
-  <md-card class='messageCard' flex>
-    <md-card-header>
-      <h4>Your Trip:</h4><md-button ng-show="!!formCompleted" ng-submit='saveItinerary()' class="md-raised">SAVE TRIP</md-button>
-    </md-card-header>
-    <md-card-content class='messageCardDiv'>
-      <div ng-show="!formCompleted">
-        <form ng-submit="startItinerary();">
+  <div layout="row" >
+    <md-card class='messageCard' scroll-glue flex>
+      <md-card-header>
+        <h5>Messages:</h5>
+      </md-card-header>
+      <md-card-content class='messageCardDiv'>
+          <div ng-repeat="message in messages" >
+            <p>{{message.user}}: {{message.message}}</p>
+          </div>
+      <md-card-footer>
+        <p></p>
+        <p></p>
+        <form class='messageInput' ng-submit="addMessage(); message = '';" >
           <md-input-container md-no-float='true'>
-            <input type='text' ng-model='itineraryName' placeholder='trip name'>
+            <input type='text' ng-model='username' placeholder='name'>
           </md-input-container>
-          <md-input-container md-no-float='true'>
-            <input type='text' ng-model='city' placeholder='City'>
+          <md-input-container >
+            <input type='text' ng-model='message' placeholder='message'>
+            <input type="submit" style="position: absolute; left: -9999px"/>
           </md-input-container>
-          <md-input-container md-no-float='true'>
-            <input type='text' ng-model='state' placeholder='State'>
-          </md-input-container>
-          <md-button type="submit">Get my Trip!</md-button>
         </form>
-      </div>
-      <div ng-show="!!formCompleted">
-        <md-card ng-repeat="activity in itinerary track by $index" >
-          <div ng-click="removeFromTrip()">
-            <img class="addActivityImage" src="{{activity.photo}}" alt="">
-            <p><strong>{{activity.name}}</strong></p>
-            <p>{{activity.address.split(',')[0]}}</p>
-            <p>{{activity.category}}</p>
-          </div>    
-        </md-card>
-      </div>
-    </md-card-content>
-  </md-card>
-  <md-card class='messageCard' flex>
-    <md-card-header>
-      <h5>Activities:</h5>
-    </md-card-header>
-    <md-card-content class='messageCardDiv'>
-      <div layout="column">
-      <md-card ng-repeat="activity in activities | orderBy:'-rating'" flex>
-        <md-card-content>
-        <div class="row" ng-click="addToTrip()">
-            <img class="addActivityImage" src="{{activity.photo}}" alt="">
-            <p><strong>{{activity.name}}</strong></p>
-            <p>{{activity.address.split(',')[0]}}</p>
-            <p>{{activity.category}}</p>
-            <p>{{activity.rating}}/10</p>
-            <a href="{{activity.url}}" target="_blank">Website</a>
+      </md-card-footer>
+      </md-card-content>
+    </md-card>
+    <md-card class='messageCard' flex>
+      <md-card-header>
+        <h4>Your Trip:</h4><md-button ng-show="!!formCompleted" ng-click='saveItinerary()' class="md-raised">SAVE TRIP</md-button>
+      </md-card-header>
+      <md-card-content class='messageCardDiv'>
+        <div ng-show="!formCompleted">
+          <form ng-submit="startItinerary();">
+            <md-input-container md-no-float='true'>
+              <input type='text' ng-model='itineraryName' placeholder='trip name'>
+            </md-input-container>
+            <md-input-container md-no-float='true'>
+              <input type='text' ng-model='city' placeholder='City'>
+            </md-input-container>
+            <md-input-container md-no-float='true'>
+              <input type='text' ng-model='state' placeholder='State'>
+            </md-input-container>
+            <md-button type="submit">Get my Trip!</md-button>
+          </form>
         </div>
-        </md-card-content>
-        </md-card>
-      </div>
-    </md-card-content>
-</div>
+        <div ng-show="!!formCompleted">
+          <md-card ng-repeat="activity in itinerary track by $index" >
+            <div ng-click="removeFromTrip()">
+              <img class="addActivityImage" src="{{activity.photo}}" alt="">
+              <p><strong>{{activity.name}}</strong></p>
+              <p>{{activity.address.split(',')[0]}}</p>
+              <p>{{activity.category}}</p>
+            </div>    
+          </md-card>
+        </div>
+      </md-card-content>
+    </md-card>
+    <md-card class='messageCard' flex>
+      <md-card-header>
+        <h5>Activities:</h5>
+      </md-card-header>
+      <md-card-content class='messageCardDiv'>
+        <div layout="column">
+        <md-card ng-repeat="activity in activities | orderBy:'-rating'" flex>
+          <md-card-content>
+          <div class="row" ng-click="addToTrip()">
+              <img class="addActivityImage" src="{{activity.photo}}" alt="">
+              <p><strong>{{activity.name}}</strong></p>
+              <p>{{activity.address.split(',')[0]}}</p>
+              <p>{{activity.category}}</p>
+              <p>{{activity.rating}}/10</p>
+              <a href="{{activity.url}}" target="_blank">Website</a>
+          </div>
+          </md-card-content>
+          </md-card>
+        </div>
+      </md-card-content>
+  </div></md-card></div></div>

@@ -1,9 +1,9 @@
 
 //  This controller applies to the createTrip.html
-angular.module('app.create', ['app.services'])
-
+angular.module('app.create', ['app.services','firebase'])
+.constant('FIREBASE_URI', "https://spotyfind.firebaseio.com/")
 //  Factory functions are loaded in in 'ActivitiesData' from 'app.services'
-.controller('CreateTripController', function ($scope, $http, ActivitiesData) {
+.controller('CreateTripController', function ($scope, $http, ActivitiesData, Fire, $firebaseArray) {
   
   // $scope.formCompleted is a variable to determine if the form is completed
   // if it's false, the form with show
@@ -75,27 +75,15 @@ angular.module('app.create', ['app.services'])
   };
   
   //messages controller:
-  $scope.messages = [
-    {
-      text: 'looks like a cool place',
-      from: 'Dan'
-    },
-    {
-      text: 'will it be too cold?',
-      from: 'Marlon'
-    },
-    {
-      text: 'Nah just bring a coat',
-      from: 'Zach'
-    },
-    {
-      text: 'Should I bring an umbrella',
-      from: 'Devin'
-    }
-  ]
+  $scope.addRoom = function () {
+    var room = Fire.addRoom();
+    $scope.roomId = room.key();
+    $scope.messages = Fire.addMessage($scope.roomId);
+    $scope.playlist = Fire.addToPlaylist($scope.roomId);
+  }
 
   $scope.addMessage = function(message){
-    $scope.messages.push(message);
+    $scope.messages.$add({user: $scope.username, message: $scope.message});
   }
 
 
