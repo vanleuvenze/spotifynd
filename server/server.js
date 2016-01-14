@@ -66,7 +66,7 @@ app.use(bodyParser.json());
 app.use(session({secret: '1234567890QWERTY'}));
 
 require('./routers/router.js')(app, express);
-require('./models/dbroutes.js')(app, express);
+//require('./models/dbroutes.js')(app, express);
 
 app.use(express.static(__dirname+'/../public'));
 
@@ -102,15 +102,15 @@ app.get('/auth/facebook/callback',
 //   req.logout();
 //   res.redirect('/');
 // });
-app.get('/api/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
+// app.get('/api/logout', function(req, res){
+//   req.logout();
+//   res.redirect('/');
+// });
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/api/login')
-}
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) { return next(); }
+//   res.redirect('/api/login')
+// }
 
 app.listen(port);
 console.log('Listening on ' + port);

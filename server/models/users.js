@@ -8,8 +8,33 @@ var UserSchema = mongoose.Schema({
     password:  String,
     trips: [{ type: mongoose.Schema.ObjectId,
     ref: 'Trip'
-  }]
+    }],
+    salt: String
 });
+
+
+// UserSchema.methods.comparePassword = function(candidatePassword) {
+//     console.log("Comparing password")
+//     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+//         if (err) return cb(err);
+//         cb(null, isMatch);
+//     });
+// };
+
+UserSchema.methods.comparePasswords = function (candidatePassword) {
+  var savedPassword = this.password;
+  return Q.Promise(function (resolve, reject) {
+    bcrypt.compare(candidatePassword, savedPassword, function (err, isMatch) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(isMatch);
+      }
+    });
+  });
+};
+
+
 
 UserSchema.pre('save', function (next) {
   var user = this;
@@ -39,11 +64,4 @@ UserSchema.pre('save', function (next) {
   });
 });
 
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-    console.log("Comparing password")
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
-};
 module.exports = mongoose.model('User', UserSchema);
