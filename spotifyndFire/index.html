@@ -1,0 +1,56 @@
+<!doctype html>
+<html ng-app='Spotifynd'>
+
+	<head></head>
+
+	<body ng-controller='Spotifynd.control'>
+		<form ng-submit='addMessage()'>
+	    <input ng-model='username' type='text' placeholder='username'/>
+	    <input ng-model='message' type='text' placeholder='message'/>
+	    <input type='submit' placeholder='username'/>
+		</form>
+
+    <p ng-click='addRoom()'>addRoom</p>
+    <p ng-click='addMessage()'>addMessage</p>
+    <p ng-click='getTripData()'>getTripData</p>
+
+
+		<div ng-repeat='message in messages'>
+      <div>{{message.user}} : {{message.message}} </div>
+    </div>
+
+    <!-- example trip data display -->
+      <!--<div ng-repeat='item in tripData'>
+      <div>trippin </div>
+    </div> -->
+
+    <dvi ng-repeat= 'item in playlist'>
+      <div>
+        <!-- this is almost certainly going to need some tweeking -->
+        {{item.city}}
+        {{item.notes}}
+        {{item.url}}
+        {{item.category}}
+        {{item.rating}}
+        {{item.photo}}
+        {{item.url}}
+      </div>
+    </div>
+		
+		<!-- Angular -->
+		<script src="bower_components/angular/angular.min.js"></script>
+
+		
+		<!-- Firebase -->
+		<script src="bower_components/firebase/firebase.js"></script>
+
+		<!-- AngularFire -->
+		<script src="bower_components/angularfire/dist/angularfire.js"></script>
+
+		<!-- Ui Router -->
+		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+		<script src='firebaseHookup.js'></script>
+
+	</body>
+</html>
