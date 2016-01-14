@@ -175,4 +175,59 @@ angular.module('app.services',[])
   };
 
   return auth;
-});
+})
+
+.factory('Fire', [
+  '$http',
+  '$firebaseArray',
+  '$firebase',
+  'FIREBASE_URI',
+  function ($http, $firebaseArray, $firebase, FIREBASE_URI) {
+
+    var ref = new Firebase(FIREBASE_URI);
+
+    var getTripData = function (city) {
+      var ref = new Firebase(FIREBASE_URI + 'tripData');
+
+      $http({
+        method: 'GET',
+        url: "http://127.0.0.1:8080/api/activities " + 'hook it up Dan!'
+      })
+      .then(function (data) {
+        ref.set(data)
+      })
+      return ref;
+    }
+
+    var addRoom = function () {
+      var newRoom = ref.push({
+        messages: [{user:'Spotifynd', message: 'Welcome!'}],
+        playlist: [],
+        tripData: []
+      })
+      return newRoom;
+    }
+
+    var addMessage = function (id) {
+      // create a reference to the database where we will store our data
+      //when we add a message we need to find the cu
+      var ref = new Firebase(FIREBASE_URI + id + '/messages');
+
+      return $firebaseArray(ref);
+      
+    }
+
+    var addToPlaylist = function (id) {
+      //
+      var ref = new Firebase(FIREBASE_URI + id + '/playlist');
+
+      return $firebaseArray(ref);
+    }
+
+    return {
+      addRoom: addRoom,
+      addMessage: addMessage,
+      addToPlaylist: addToPlaylist,
+      getTripData: getTripData
+    }
+}])

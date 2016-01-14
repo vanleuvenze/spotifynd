@@ -5,6 +5,9 @@ html {
 h1 {
   margin-top: 0;
 }
+body {
+  background-color: #00bcd4;
+}
 #landing-filter {
   display: block;
   margin: 0 auto 10px auto;
@@ -216,7 +219,7 @@ body, html {
 }
 
 .messageCard {
-  height: 87vh;
+  height: 77vh;
   overflow-y: auto;
 }
 .messageInput {
