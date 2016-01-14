@@ -121,60 +121,109 @@ angular.module('app.services',[])
 
 // this factory is for authentication which is not impemented in the app yet.
 .factory('Auth', function($http, $location){
-  var auth = {};
-  auth.user = { password : '' };
-  auth.pass = '';
-
-  auth.clearPassword = function() {
-    auth.user.password = '';
-    auth.pass = '';
-  };
-
-  auth.login = function(user) {
-    return $http.post('/api/login', user)
-      .then(function(result){
-        console.log("Auth Login Hit")
-        if(result.data){
-          console.log("login results", result)
-          console.log("Username", user.username)
-          auth.getUser(user.username)
-          .then(function() {
-            auth.clearPassword();
-            $location.path("/myTrips");
-          });
-        } else {
-          //stay on login
-          var loginError = "Please Try Again"
-          return loginError;
-        }
+    var signUp = function (data) {
+      return $http({
+        method: 'POST',
+        url: '/api/signup',
+        data: data
       })
-  };
+      .then(function (data) {
+        window.localStorage.setItem('EQUIP_TOKEN', data.data._id);
+        return data;
+      })
+    }
 
-  auth.signup = function(userData) {
-    auth.pass = userData.password;
-    return $http.post('/api/signup', userData)
-    .then(function(result){
-      if(Array.isArray(result.data)){
-        var signUpError = "Username Taken";
-        return signUpError;
-      } else {
-        auth.user = result.data;
-        auth.user.password = auth.pass;
-        auth.login(auth.user);
+    var signIn = function (username, password) {
+      var user = {
+        username: username,
+        password: password
       }
-      //redirect
-    })
-  };
+      return $http({
+        method: 'POST',
+        url: '/api/login',
+        data: user
+      })
+      .then(function (data) {
+        return data;
+      })
+      .catch(function (error) {
+        console.log('problem', error);
+      })
+    }
 
-  auth.getUser = function(username) {
-    return $http.get('/api/user/'+ username)
-    .then(function(result){
-      console.log("Result of getUser", result.data)
-      auth.user = result.data;
-    })
-  };
+    var logout = function () {
+      window.localStorage.removeItem("EQUIP_TOKEN");
+    }
+  
+    var isAuthorized = function () {
+      if (localStorage.EQUIP_TOKEN) {
+        return true;
+      }
+      return false;
+    }
 
-  return auth;
+    return {
+      logout: logout,
+      signIn: signIn,
+      signUp: signUp,
+      isAuthorized: isAuthorized
+    }
+
+
+  // var auth = {};
+  // auth.user = { password : '' };
+  // auth.pass = '';
+
+  // auth.clearPassword = function() {
+  //   auth.user.password = '';
+  //   auth.pass = '';
+  // };
+
+  // auth.login = function(user) {
+  //   return $http.post('/api/login', user)
+  //     .then(function(result){
+  //       console.log("Auth Login Hit")
+  //       if(result.data){
+  //         console.log("login results", result)
+  //         console.log("Username", user.username)
+  //         auth.getUser(user.username)
+  //         .then(function() {
+  //           auth.clearPassword();
+  //           $location.path("/myTrips");
+  //         });
+  //       } else {
+  //         //stay on login
+  //         var loginError = "Please Try Again"
+  //         return loginError;
+  //       }
+  //     })
+  // };
+
+  // auth.signup = function(userData) {
+  //   auth.pass = userData.password;
+  //   return $http.post('/api/signup', userData)
+  //   .then(function(result){
+  //     if(Array.isArray(result.data)){
+  //       var signUpError = "Username Taken";
+  //       return signUpError;
+  //     } else {
+  //       auth.user = result.data;
+  //       auth.user.password = auth.pass;
+  //       auth.login(auth.user);
+  //     }
+  //     //redirect
+  //   })
+  // };
+
+  // auth.getUser = function(username) {
+  //   return $http.get('/api/user/'+ username)
+  //   .then(function(result){
+  //     console.log("Result of getUser", result.data)
+  //     auth.user = result.data;
+  //   })
+  // };
+
+  // return auth;
 })
 
 .factory('Fire', [

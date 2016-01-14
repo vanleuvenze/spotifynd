@@ -3,7 +3,7 @@
     <div class="md-toolbar-tools">
       <span>Spotifynd</span>
       <span flex></span>
-      <md-button ng-click="location.path('/login')">
+      <md-button ng-click='redirectSignup()'>
         Sign Up
       </md-button>
     </div>
@@ -15,18 +15,20 @@
       <h3>Log in:</h3>
     </md-card-header>
     <md-card-content>
-      <form ng-submit="login()">
+      <form ng-submit="signIn()">
         <md-input-container md-no-float='true'>
           <input type='text' ng-model='username' placeholder='username'>
         </md-input-container>
         <md-input-container md-no-float='true'>
           <input type='password' ng-model='password' placeholder='password'>
         </md-input-container>
-        <md-button type="submit">Sign Up</md-button>
+        <md-button type="submit">Log In</md-button>
       </form>
 
       <h4> {{ errorr }} </h4>
-      <p>Not a member? <a href="/#login">Signup here</a></p>
+      <p>Not a member? <md-button type='text' ng-click='redirectSignup()'>Login Here</md-button></p>
+      <p>Or Register with:</p>
+      <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
     </md-card-content>
   </md-card>
 </div>
