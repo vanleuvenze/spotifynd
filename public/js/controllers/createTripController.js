@@ -4,32 +4,48 @@ angular.module('app.create', ['app.services','firebase'])
 .constant('FIREBASE_URI', "https://spotyfind.firebaseio.com/")
 //  Factory functions are loaded in in 'ActivitiesData' from 'app.services'
 .controller('CreateTripController', function ($scope, $http, ActivitiesData, Fire, $firebaseArray) {
+
+  var settings = new Firebase(FIREBASE_URI + $scope.roomId +'/settings');
+  //check our settings when we get into the room
+  if (settings) {
+    settings.on('value', function (snap) {
+      if (snap.val() !== null) {
+        var location = snap.val().location;
+        $scope.activities = ActivitiesData.getActivities(location);
+      } else {
+        console.log('select a city');
+      }
+    });
+  }
   
   // $scope.formCompleted is a variable to determine if the form is completed
   // if it's false, the form with show
   // if true, the form will hide and the right side of page will populate
   $scope.formCompleted = false;
   $scope.topLevelCompleted = false;
-  // <h3>startItinerary is a function to: </h3>
+   // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
     // 2. trigger the search
   $scope.startItinerary = function () {
     console.log('start itinerary');
-    // this if block ensures that the Itinerary Name City and State are present 
-    // before submitting the form
+
     if (!$scope.itineraryName || !$scope.city || !$scope.state) {
       return;
     } else {
-      // $scope.formCompleted set to true removes the form and begins populating 
-      // the rest of the page.
+      //city url to update settings with
+      var cityUrl = $scope.city + ',' + $scope.state;
+
+      // remove the form - replace with playlist constructor
       $scope.formCompleted = true;
-      $http.get('/api/activities/' + $scope.city + ',' + $scope.state)
-        .success(function (data) {
-          // $scope.activities is an array of all the activities found by the api
-          // at the given destination
-          $scope.activities = data;
-        });
+
+      //update settings;
+      $scope.settings.update({'location' : cityUrl});
+      ActivitiesData.getActivities(cityUrl)
+        .then(function (data) {
+          $scope.activities = data.data;
+        })
     }
+ 
   };
 
   // $scope.itinerary is an emtpy array that will contain all the activities the user will add
@@ -81,6 +97,9 @@ angular.module('app.create', ['app.services','firebase'])
     $scope.messages = Fire.addMessage($scope.roomId);
     $scope.playlist = Fire.addToPlaylist($scope.roomId);
     $scope.topLevelCompleted = true;
+    
+      // make our settings available
+    $scope.settings = new Firebase(FIREBASE_URI + $scope.roomId +'/settings');
   }
   $scope.getRoom = function(id){
     var room = Fire.getRoom(id);
