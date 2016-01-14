@@ -3,7 +3,7 @@
     <div class="md-toolbar-tools">
       <span>Spotifynd</span>
       <span flex></span>
-      <md-button ng-click="location.path('/login')">
+      <md-button ng-click='redirectSignup()'>
         Sign Up
       </md-button>
     </div>
@@ -15,50 +15,20 @@
       <h3>Log in:</h3>
     </md-card-header>
     <md-card-content>
-      <form ng-submit="login()">
+      <form ng-submit="signIn()">
         <md-input-container md-no-float='true'>
           <input type='text' ng-model='username' placeholder='username'>
         </md-input-container>
         <md-input-container md-no-float='true'>
           <input type='password' ng-model='password' placeholder='password'>
         </md-input-container>
-        <md-button type="submit">Sign Up</md-button>
+        <md-button type="submit">Log In</md-button>
       </form>
 
       <h4> {{ errorr }} </h4>
-      <p>Not a member? <a href="/#login">Signup here</a></p>
+      <p>Not a member? <md-button type='text' ng-click='redirectSignup()'>Login Here</md-button></p>
+      <p>Or Register with:</p>
+      <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
     </md-card-content>
   </md-card>
-</div>
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1552672764973369";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-  <h3>Login:</h3>
-  <form>
-    <input type="text" placeholder="username" ng-model="username">
-    <input type="password" placeholder="password" ng-model="password">
-    <button ng-click="login()">Login</button>
-  </form>
-  <h4> {{ error }} </h4>
-  <p>Not a member? <a href="/#signup">Signup here</a></p>
-
-  <p>Login or Register with:</p>
-  <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-<!-- 	<div class="fb-share-button" 
-		data-href="http://localhost:8080/api/login.html" 
-		data-layout="button_count">
-	</div> -->
-
-	<div class="fb-share-button" data-layout="button_count"></div>
-	
-  
-  
 </div>

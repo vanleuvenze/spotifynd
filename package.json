@@ -20,6 +20,7 @@
     "bower": "1.5.2",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
+    "jwt-simple": "^0.2.0",
     "kerberos": "0.0.17",
     "mongoose": "^4.3.4",
     "morgan": "^1.6.1",
