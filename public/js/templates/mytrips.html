@@ -1,4 +1,14 @@
-
+<div layout="column" flex>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <span>Spotifynd</span>
+      <span flex></span>
+      <md-button ng-click="location.path('/login')">
+        Sign Up
+      </md-button>
+    </div>
+  </md-toolbar>
+</div>
 <!-- Content -->
   <h1 class="page-title">Playlists</h1>
   <input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">

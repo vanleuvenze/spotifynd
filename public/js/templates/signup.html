@@ -1,16 +1,35 @@
-<div class="signup-container">
-
-  <h3>Sign up:</h3>
-  <form>
-    <div class="form-group">
-      <input type="text" placeholder="username" ng-model="signUpUsername">
-      <input type="password" placeholder="password" ng-model="signUpPassword">
-      <input type="password" placeholder="confirm password">
-      <button ng-click="signup()">Sign up</button>
+<div layout="column" flex>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <span>Spotifynd</span>
+      <span flex></span>
+      <md-button ng-click="location.path('/login')">
+        Login
+      </md-button>
     </div>
-  </form>
-  <h4> {{ signUpError }} </h4>
-  <p>Already registered? <a href="/#login">Login here</a></p>
+  </md-toolbar>
+</div>
+<div layout="row" flex-offset="25">
+  <md-card>
+    <md-card-header>
+      <h3>Sign up:</h3>
+    </md-card-header>
+    <md-card-content>
+      <form ng-submit="signup()">
+        <md-input-container md-no-float='true'>
+          <input type='text' ng-model='signUpUsername' placeholder='username'>
+        </md-input-container>
+        <md-input-container md-no-float='true'>
+          <input type='password' ng-model='signUpPassword' placeholder='password'>
+        </md-input-container>
+        <md-input-container md-no-float='true'>
+          <input type='text' placeholder='confirm password'>
+        </md-input-container>
+        <md-button type="submit">Sign Up</md-button>
+      </form>
 
-  
+      <h4> {{ signUpError }} </h4>
+      <p>Already registered? <a href="/#login">Login here</a></p>
+    </md-card-content>
+    </md-card>
 </div>

@@ -1,11 +1,21 @@
-<h2 class="text-center">Soy Milk</h2>
-<a href="/#create" class="text-center" style="display: block">Make a Playlist</a>
+<div layout="column" flex>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <span>Spotifynd</span>
+      <span flex></span>
+      <md-button ng-click="location.path('/login')">
+        Sign Up
+      </md-button>
+    </div>
+  </md-toolbar>
+</div>
+<a href="#/room" class="text-center" style="display: block">Make a Playlist</a>
 
-<h1 class="page-title">Popular Playlists:</h1>
+<h1 class="page-title">Browse trips others have made</h1>
 
 <input type="text" ng-model="filter.destination" id="landing-filter" placeholder="Search By City">
 
-<div class="myTrips" style="background-color: white">
+
   <span class="playlist" ng-repeat="trip in tripResults | filter:filter" ng-click="viewTrip(tripResults.indexOf(trip))">
     <div class="playlist-img">
       <img class="trip-img" src="{{trip.image}}" alt="image of {{trip.name}}, {{trip.destination[0]}}">
@@ -16,4 +26,3 @@
       <p class="trip-destination">{{trip.destination[0]}}, {{trip.destination[1]}}</p>
     </div>
   </span>
-</div>
