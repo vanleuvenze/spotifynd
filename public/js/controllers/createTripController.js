@@ -3,20 +3,7 @@
 angular.module('app.create', ['app.services','firebase'])
 .constant('FIREBASE_URI', "https://spotyfind.firebaseio.com/")
 //  Factory functions are loaded in in 'ActivitiesData' from 'app.services'
-.controller('CreateTripController', function ($scope, $http, ActivitiesData, Fire, $firebaseArray) {
-
-  var settings = new Firebase(FIREBASE_URI + $scope.roomId +'/settings');
-  //check our settings when we get into the room
-  if (settings) {
-    settings.on('value', function (snap) {
-      if (snap.val() !== null) {
-        var location = snap.val().location;
-        $scope.activities = ActivitiesData.getActivities(location);
-      } else {
-        console.log('select a city');
-      }
-    });
-  }
+.controller('CreateTripController', function ($scope, $http, ActivitiesData, Fire, FIREBASE_URI, $firebaseArray) {
   
   // $scope.formCompleted is a variable to determine if the form is completed
   // if it's false, the form with show
@@ -39,7 +26,9 @@ angular.module('app.create', ['app.services','firebase'])
       $scope.formCompleted = true;
 
       //update settings;
-      $scope.settings.update({'location' : cityUrl});
+      var settings = new Firebase(FIREBASE_URI + $scope.roomId + '/settings')
+      settings.update({'location' : cityUrl});
+      
       ActivitiesData.getActivities(cityUrl)
         .then(function (data) {
           $scope.activities = data.data;
@@ -103,6 +92,13 @@ angular.module('app.create', ['app.services','firebase'])
   }
   $scope.getRoom = function(id){
     var room = Fire.getRoom(id);
+    var settings = room.child('/settings/location').on('value', function (snap) {
+    var location = snap.val();
+      ActivitiesData.getActivities(location)
+        .then(function (data) {
+          $scope.activities = data.data;
+        })
+    })
     $scope.messages = Fire.addMessage($scope.roomId)
     $scope.playlist = Fire.addToPlaylist($scope.roomId);
     $scope.topLevelCompleted = true;

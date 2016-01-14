@@ -226,7 +226,7 @@ angular.module('app.services',[])
 
     var getRoom = function (id) {
       var ref = new Firebase(FIREBASE_URI + id)
-      return $firebaseArray(ref);
+      return ref;
     }
 
     return {
