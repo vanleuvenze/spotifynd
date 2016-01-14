@@ -5,8 +5,13 @@
     <title>Spotifynd</title>
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    
+    <link rel="stylesheet" type="text/css" href="css/style.css">   
+  </head>
+  
+  <body ng-view>
+  </body>
+
+  <!-- libraries -->
   <script src="lib/underscore/underscore-min.js"></script>
   <script src="lib/jquery/dist/jquery.min.js"></script>
   <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -28,12 +33,5 @@
   <script src="js/controllers/tripViewController.js"></script>
   <script src="js/controllers/messageController.js"></script>
   <script src="js/services/services.js"></script>
-  </head>
-
-  <body>
-    <div ng-view></div>
-  </body>
-
-  <!-- libraries -->
   
 </html>
