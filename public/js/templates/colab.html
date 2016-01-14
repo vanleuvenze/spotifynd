@@ -13,13 +13,18 @@
     </div>
   </md-toolbar>
 </div>
-<div ng-init="addRoom()" layout="column">
-  <md-card flex>
+<div layout="column" >
+  <md-card ng-show="!topLevelCompleted">
+    <md-card-content>
+      <md-button ng-click="addRoom()">Start a New Trip</md-button><md-input-container><input type="text" ng-model="roomId" placeholder="unique trip code"></md-input-container><md-button ng-click="getRoom(roomId)">Find My Trip</md-button>
+    </md-card-content>
+  </md-card>
+  <md-card layout='row' ng-show="!!topLevelCompleted" flex>
     <md-card-content>
       <p>Invite your Friends!: http://www.Spotifynd.com/{{roomId}}</p>
     </md-card-content>
   </md-card>
-  <div layout="row" >
+  <div layout="row" ng-show="!!topLevelCompleted">
     <md-card class='messageCard' scroll-glue flex>
       <md-card-header>
         <h5>Messages:</h5>
