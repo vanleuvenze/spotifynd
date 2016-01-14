@@ -1,5 +1,5 @@
-angular.module('app.message', [])
-  .controller('messageController', function($scope){
+angular.module('app.message', ['app.services'])
+  .controller('messageController', function($scope, ActivitiesData){
     $scope.messages = [
       {
         text: 'looks like a cool place',

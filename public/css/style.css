@@ -18,7 +18,7 @@ h1 {
   overflow: auto;
 }
 .addActivityImage {
-  border: 3px solid black;
+  margin: 5px;
   height: 150px;
   width: 150px;
   float: left;
@@ -216,8 +216,10 @@ body, html {
 }
 
 .messageCard {
-  width: 25vw;
-  height: 70vh;
+  height: 87vh;
   overflow-y: auto;
 }
-
+.messageInput {
+  position: absolute; 
+  bottom: 0;
+}
