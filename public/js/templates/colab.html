@@ -16,7 +16,9 @@
 <div layout="column" >
   <md-card ng-show="!topLevelCompleted">
     <md-card-content>
-      <md-button ng-click="addRoom()">Start a New Trip</md-button><md-input-container><input type="text" ng-model="roomId" placeholder="unique trip code"></md-input-container><md-button ng-click="getRoom(roomId)">Find My Trip</md-button>
+      <md-button ng-click="addRoom()">Create a New Trip</md-button>
+      <md-button ng-click="getRoom(roomId)">Find My Trip</md-button>
+      <input type="text" ng-model="roomId" placeholder="unique trip code">
     </md-card-content>
   </md-card>
   <md-card layout='row' ng-show="!!topLevelCompleted" flex>
