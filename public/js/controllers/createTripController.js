@@ -28,7 +28,7 @@ angular.module('app.create', ['app.services','firebase'])
       //update settings;
       var settings = new Firebase(FIREBASE_URI + $scope.roomId + '/settings')
       settings.update({'location' : cityUrl});
-      
+
       ActivitiesData.getActivities(cityUrl)
         .then(function (data) {
           $scope.activities = data.data;
@@ -39,7 +39,7 @@ angular.module('app.create', ['app.services','firebase'])
 
   // $scope.itinerary is an emtpy array that will contain all the activities the user will add
   // to their trip
-  $scope.itinerary = []; 
+  // $scope.itinerary = []; 
 
   // <h4>$scope.addToTrip</h4> 
   // Is a function that that adds an activity from the api to the users itinerary
@@ -48,14 +48,14 @@ angular.module('app.create', ['app.services','firebase'])
     if ($scope.itinerary.length === 0) {
       $scope.itineraryImage = this.activity.photo;
     }
-    $scope.itinerary.push(this.activity);
+    $scope.itinerary.$add(this.activity);
   };
 
   // <h4>$scope.removeFromTrip</h4>
   // Is a function that removes an item from the users itinerary
   $scope.removeFromTrip = function () {
     var index = $scope.itinerary.indexOf(this.activity);
-    $scope.itinerary.splice(index, 1);
+    $scope.itinerary.$remove(index);
   };
 
   // <h4>$scope.saveItinerary</h4>
@@ -84,7 +84,7 @@ angular.module('app.create', ['app.services','firebase'])
     var room = Fire.addRoom();
     $scope.roomId = room.key();
     $scope.messages = Fire.addMessage($scope.roomId);
-    $scope.playlist = Fire.addToPlaylist($scope.roomId);
+    $scope.itinerary = Fire.addToPlaylist($scope.roomId);
     $scope.topLevelCompleted = true;
     
       // make our settings available
@@ -100,8 +100,9 @@ angular.module('app.create', ['app.services','firebase'])
         })
     })
     $scope.messages = Fire.addMessage($scope.roomId)
-    $scope.playlist = Fire.addToPlaylist($scope.roomId);
+    $scope.itinerary = Fire.addToPlaylist($scope.roomId);
     $scope.topLevelCompleted = true;
+    $scope.formCompleted = true;
   }
 
   $scope.addMessage = function(message){
