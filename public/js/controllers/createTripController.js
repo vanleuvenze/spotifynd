@@ -9,7 +9,7 @@ angular.module('app.create', ['app.services','firebase'])
   // if it's false, the form with show
   // if true, the form will hide and the right side of page will populate
   $scope.formCompleted = false;
-  
+  $scope.topLevelCompleted = false;
   // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
     // 2. trigger the search
@@ -80,6 +80,13 @@ angular.module('app.create', ['app.services','firebase'])
     $scope.roomId = room.key();
     $scope.messages = Fire.addMessage($scope.roomId);
     $scope.playlist = Fire.addToPlaylist($scope.roomId);
+    $scope.topLevelCompleted = true;
+  }
+  $scope.getRoom = function(id){
+    var room = Fire.getRoom(id);
+    $scope.messages = Fire.addMessage($scope.roomId)
+    $scope.playlist = Fire.addToPlaylist($scope.roomId);
+    $scope.topLevelCompleted = true;
   }
 
   $scope.addMessage = function(message){

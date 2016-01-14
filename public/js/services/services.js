@@ -224,7 +224,13 @@ angular.module('app.services',[])
       return $firebaseArray(ref);
     }
 
+    var getRoom = function (id) {
+      var ref = new Firebase(FIREBASE_URI + id)
+      return $firebaseArray(ref);
+    }
+
     return {
+      getRoom: getRoom,
       addRoom: addRoom,
       addMessage: addMessage,
       addToPlaylist: addToPlaylist,
