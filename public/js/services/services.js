@@ -202,7 +202,7 @@ angular.module('app.services',[])
     var addRoom = function () {
       var newRoom = ref.push({
         messages: [{user:'Spotifynd', message: 'Welcome!'}],
-        playlist: [],
+        itinirary: [],
         settings: {user: 'yywe', location: null}
       })
       return newRoom;
