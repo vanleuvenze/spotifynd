@@ -8,10 +8,10 @@ module.exports = function(app, express) {
   app.post('/api/login', userController.login);
   app.post('/api/signup', userController.signup);
   app.get('/api/logout', userController.logout);
-  app.get('/api/activities/*', restrict, controller.searchStoredData, controller.fetchCityData);
-  app.post('/api/trips', restrict, controller.createTrip);
-  app.get('/api/trips/:id', restrict, controller.accessTrip);
-  app.get('/api/trips', restrict, controller.getAllTrips);
+  app.get('/api/activities/*', controller.searchStoredData, controller.fetchCityData);
+  app.post('/api/trips', controller.createTrip);
+  app.get('/api/trips/:id', controller.accessTrip);
+  app.get('/api/trips', controller.getAllTrips);
 
  //###### Live but not used in production############
   app.get('/api/user/*', userController.findUser);

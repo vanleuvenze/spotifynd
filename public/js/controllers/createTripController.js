@@ -3,13 +3,24 @@
 angular.module('app.create', ['app.services','firebase'])
 .constant('FIREBASE_URI', "https://spotyfind.firebaseio.com/")
 //  Factory functions are loaded in in 'ActivitiesData' from 'app.services'
-.controller('CreateTripController', function ($scope, $http, ActivitiesData, Fire, FIREBASE_URI, $firebaseArray) {
+.controller('CreateTripController', function ($scope, $http, ActivitiesData, Fire, FIREBASE_URI, $firebaseArray, $window, $location) {
   
   // $scope.formCompleted is a variable to determine if the form is completed
   // if it's false, the form with show
   // if true, the form will hide and the right side of page will populate
   $scope.formCompleted = false;
   $scope.topLevelCompleted = false;
+  $scope.trips = [
+    { _id: "3457034734534598",
+     room: "-K81Dja_qE5iLwjtJ16e",
+     name: "BOONE Party" },
+         { _id: "3457034734534598",
+     room: "-K81Dja_qE5iLwjtJ16e",
+     name: "BAKERSFIELD Party" },
+         { _id: "3457034734534598",
+     room: "-K81Dja_qE5iLwjtJ16e",
+     name: "San Francisco" }
+  ]
    // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
     // 2. trigger the search
@@ -91,6 +102,7 @@ angular.module('app.create', ['app.services','firebase'])
     $scope.settings = new Firebase(FIREBASE_URI + $scope.roomId +'/settings');
   }
   $scope.getRoom = function(id){
+    $scope.roomId = id
     var room = Fire.getRoom(id);
     var settings = room.child('/settings/location').on('value', function (snap) {
     var location = snap.val();
@@ -109,5 +121,8 @@ angular.module('app.create', ['app.services','firebase'])
     $scope.messages.$add({user: $scope.username, message: $scope.message});
   }
 
-
+  $scope.logOut = function(){
+    $window.localStorage.removeItem('EQUIP_TOKEN');
+    $location.path('/')
+  }
 });

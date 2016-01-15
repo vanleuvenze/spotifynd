@@ -7,20 +7,32 @@
       <md-button>
         Friends
       </md-button>
-      <md-button>
+      <md-button ng-click="logOut()">
         Logout
       </md-button>
     </div>
   </md-toolbar>
 </div>
-<div layout="column" >
-  <md-card ng-show="!topLevelCompleted">
+<div layout="row" ng-show="!topLevelCompleted">
+  <md-card flex>
     <md-card-content>
       <md-button ng-click="addRoom()">Create a New Trip</md-button>
       <md-button ng-click="getRoom(roomId)">Find My Trip</md-button>
       <input type="text" ng-model="roomId" placeholder="unique trip code">
     </md-card-content>
   </md-card>
+  <md-card flex>
+    <md-card ng-repeat="trip in trips" flex>
+      <md-card-content>
+        <div class="row">
+            <p><strong>{{trip.name}}</strong></p>
+            <p ng-click="roomId = trip.room; getRoom(roomId)">{{trip.room}}</p>
+        </div>
+      </md-card-content>
+    </md-card>
+  </md-card>
+  </div>
+  <div layout="column">
   <md-card layout='row' ng-show="!!topLevelCompleted" flex>
     <md-card-content>
       <p>Invite your Friends!: http://www.Spotifynd.com/{{roomId}}</p>
