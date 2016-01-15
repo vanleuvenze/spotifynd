@@ -8,19 +8,28 @@ angular.module('app.create', ['app.services','firebase'])
   // $scope.formCompleted is a variable to determine if the form is completed
   // if it's false, the form with show
   // if true, the form will hide and the right side of page will populate
+  $scope.userId = $window.localStorage.getItem('EQUIP_TOKEN')
+  $scope.userInfo = {};
   $scope.formCompleted = false;
   $scope.topLevelCompleted = false;
   $scope.trips = [
     { _id: "3457034734534598",
-     room: "-K81Dja_qE5iLwjtJ16e",
+     room: "-K85jE1W6AzhQyah2c9H",
      name: "BOONE Party" },
          { _id: "3457034734534598",
-     room: "-K81Dja_qE5iLwjtJ16e",
+     room: "-K85jE1W6AzhQyah2c9H",
      name: "BAKERSFIELD Party" },
          { _id: "3457034734534598",
-     room: "-K81Dja_qE5iLwjtJ16e",
+     room: "-K85jE1W6AzhQyah2c9H",
      name: "San Francisco" }
   ]
+  $scope.getUser = function(id){
+    ActivitiesData.getUser(id)
+      .then(function(user){
+        $scope.userInfo = user
+        $scope.trips = user.trips
+      })
+  }
    // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
     // 2. trigger the search

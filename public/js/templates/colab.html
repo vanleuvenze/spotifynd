@@ -1,9 +1,10 @@
 <div layout="column" flex>
+<!-- toolbar -->
   <md-toolbar>
     <div class="md-toolbar-tools">
       <span>Spotifynd</span>
       <!-- fill up the space between left and right area -->
-      <span flex></span>
+      <span flex>{{userId}}</span>
       <md-button>
         Friends
       </md-button>
@@ -13,6 +14,8 @@
     </div>
   </md-toolbar>
 </div>
+<!-- toolbar -->
+<!-- when first brought to page will see these divs -->
 <div layout="row" ng-show="!topLevelCompleted">
   <md-card flex>
     <md-card-content>
@@ -32,6 +35,7 @@
     </md-card>
   </md-card>
   </div>
+  <!-- once you decide what you want to do those divs will disappear and these will appear with your room data -->
   <div layout="column">
   <md-card layout='row' ng-show="!!topLevelCompleted" flex>
     <md-card-content>

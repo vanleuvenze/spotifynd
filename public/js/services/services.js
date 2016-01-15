@@ -98,18 +98,25 @@ angular.module('app.services',[])
   // retrieves an object containing all activities and data related
   // to the trip id
   data.getTripActivities = function(id, cb){
-   return $http.get('/api/trips/' + id)
-   .then(function(results){
-    console.log('trip data: ', results)
+    return $http.get('/api/trips/' + id)
+    .then(function(results){
+      console.log('trip data: ', results)
      //our server calls a get request to the foursquare api
      //posts it to our database
      //gets data back out of our database and returns it
-     cb(results);
-   })
-   .catch(function(err){
-     console.log("Error Getting User Trip Data: ", err)
-   })
- };
+      cb(results);
+    })
+    .catch(function(err){
+      console.log("Error Getting User Trip Data: ", err)
+    })
+  };
+
+  data.getUser = function(id, callback){
+    return $http.get('/api/user/' + id)
+    .then(function(user){
+      callback(user)
+    })
+  }
 
   return data;
 })

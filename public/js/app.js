@@ -44,5 +44,5 @@ angular.module('app', ['firebase', 'app.auth', 'app.trip', 'app.landing', 'app.c
       templateUrl: './js/templates/colab.html',
       controller: 'CreateTripController'
     })
-    .otherwise('/');
+    .otherwise('/signin');
 });
