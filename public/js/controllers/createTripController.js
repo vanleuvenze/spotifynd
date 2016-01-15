@@ -38,7 +38,7 @@ angular.module('app.create', ['app.services','firebase'])
 
       //update settings;
       var settings = new Firebase(FIREBASE_URI + $scope.roomId + '/settings')
-      settings.update({'location' : cityUrl});
+      settings.update({'location' : cityUrl, 'createdAt': Firebase.ServerValue.TIMESTAMP});
 
       ActivitiesData.getActivities(cityUrl)
         .then(function (data) {
