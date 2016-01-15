@@ -8,6 +8,7 @@ module.exports = function(app, express) {
   app.post('/api/login', userController.login);
   app.post('/api/signup', userController.signup);
   app.get('/api/logout', userController.logout);
+
   app.get('/api/activities/*', controller.searchStoredData, controller.fetchCityData);
   app.post('/api/trips', controller.createTrip);
   app.get('/api/trips/:id', controller.accessTrip);
@@ -16,7 +17,6 @@ module.exports = function(app, express) {
 
   //get this route working so that we can find all trips associated with one user.
   app.get('/api/user/trips/*', userController.findAllUserTrips);
-
 
  //###### Live but not used in production############
   app.get('/api/user/*', userController.findUser);
