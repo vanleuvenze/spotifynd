@@ -11,14 +11,6 @@ var UserSchema = mongoose.Schema({
 });
 
 
-// UserSchema.methods.comparePassword = function(candidatePassword) {
-//     console.log("Comparing password")
-//     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-//         if (err) return cb(err);
-//         cb(null, isMatch);
-//     });
-// };
-
 UserSchema.methods.comparePasswords = function (candidatePassword) {
   var savedPassword = this.password;
   return Q.Promise(function (resolve, reject) {
@@ -31,8 +23,6 @@ UserSchema.methods.comparePasswords = function (candidatePassword) {
     });
   });
 };
-
-
 
 UserSchema.pre('save', function (next) {
   var user = this;

@@ -148,7 +148,7 @@ module.exports = {
       res.json(results)
     });
   },
-
+ 
   //<h3> accessTrip </h3> 
     // Returns a trip object with name, destination, and actitivites properties
     // Acitivties is an array
