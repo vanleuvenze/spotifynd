@@ -14,6 +14,13 @@ angular.module('app.services',[])
   // Function that sends a get request to /activities/`cityname`
   // and retrieves 30 foursquare top rated activities for the city
   // returns a promise
+  data.updateUser = function(id, trips){
+    return $http.put('/api/user/' + id, trips)
+      .then(function(){
+        console.log('updated trips')
+      })
+  }
+
   data.getActivities = function(city){
     //checks if the city has been searched before
     if(data.searchedCity[city]){
@@ -114,7 +121,7 @@ angular.module('app.services',[])
   data.getUser = function(id, callback){
     return $http.get('/api/user/' + id)
     .then(function(user){
-      return user
+      return user.data
     })
   }
 

@@ -17,9 +17,16 @@ angular.module('app.create', ['app.services','firebase'])
   $scope.getUser = function(id){
     ActivitiesData.getUser(id)
       .then(function(user){
-        $scope.user = user
+        $scope.userInfo = user
         $scope.trips = user.trips
       })
+  }
+
+  $scope.addToUserRooms = function(){
+
+    $scope.trips.push({room: $scope.roomId, tripName: $scope.itineraryName})
+    var userTrips = {trips: $scope.trips}
+    ActivitiesData.updateUser($scope.userId, userTrips)
   }
    // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
@@ -118,7 +125,8 @@ angular.module('app.create', ['app.services','firebase'])
   }
 
   $scope.addMessage = function(message){
-    $scope.messages.$add({user: $scope.username, message: $scope.message});
+    console.log($scope.userInfo.username);
+    $scope.messages.$add({user: $scope.userInfo.username, message: $scope.message});
   }
 
   $scope.logOut = function(){
