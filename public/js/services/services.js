@@ -49,9 +49,6 @@ angular.module('app.services',[])
     })
   };
 
-  // <h4>data.getUsersTrips</h4>
-  // Function that retrieves all of one users stored trips
-  // sends get request to /trips/`userId`
   data.getUsersTrips = function(userId, callback){
     $http.get('/api/trips/' + userId)
     .then(function(results){

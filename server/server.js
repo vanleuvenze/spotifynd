@@ -73,8 +73,6 @@ app.use(express.static(__dirname+'/../public'));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
 // GET /auth/facebook
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  The first step in Facebook authentication will involve
