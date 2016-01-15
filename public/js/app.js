@@ -11,32 +11,32 @@ angular.module('app', ['firebase', 'app.auth', 'app.trip', 'app.landing', 'app.c
 .config(function ($routeProvider) {
   $routeProvider
     // landing page
-    .when('/', {
-      templateUrl: './js/templates/landing.html',
-      controller: 'LandingController'
-    })
+    // .when('/landing', {
+    //   templateUrl: './js/templates/landing.html',
+    //   controller: 'LandingController'
+    // })
     // login page
-    .when('/login', {
-      templateUrl: './js/templates/login.html',
-      controller: 'AuthController'
-    })
+    // .when('/login', {
+    //   templateUrl: './js/templates/login.html',
+    //   controller: 'AuthController'
+    // })
     // signup page
-    .when('/signup', {
+    .when('/signin', {
       templateUrl: './js/templates/signup.html',
       controller: 'AuthController'
     })
     // trip creation page
-    .when('/create', {
-      templateUrl: './js/templates/createTrip.html',
-      controller: 'CreateTripController'
-    })
+    // .when('/create', {
+    //   templateUrl: './js/templates/createTrip.html',
+    //   controller: 'CreateTripController'
+    // })
     // myTrips page
     .when('/myTrips', {
       templateUrl: './js/templates/mytrips.html',
       controller: 'MyTripsController'
     })
     // splash page
-    .when('/splash', {
+    .when('/', {
       templateUrl: './js/templates/splash.html',
     })
     // single trip page
@@ -44,5 +44,5 @@ angular.module('app', ['firebase', 'app.auth', 'app.trip', 'app.landing', 'app.c
       templateUrl: './js/templates/colab.html',
       controller: 'CreateTripController'
     })
-    .otherwise('/splash');
+    .otherwise('/');
 });

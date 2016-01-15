@@ -3,7 +3,7 @@ angular.module('app.auth', ['app.services'])
 // Auth is a factory/service from app.services
 .controller('AuthController', function ($scope, $http, $location, Auth) {
 
-
+  
 
   $scope.signUp = function () { 
     var data = {
@@ -13,7 +13,7 @@ angular.module('app.auth', ['app.services'])
 
     Auth.signUp(data)
       .then(function (data) {
-        $location.path('/trips');
+        $location.path('/room');
         console.log('good post', data);
       })
       .catch(function (err) {
@@ -29,10 +29,17 @@ angular.module('app.auth', ['app.services'])
       $scope.aab = 'hello'
       console.log($scope.user)
       window.localStorage.setItem('EQUIP_TOKEN', data.data.id);
-      $location.path('/trips');
+      $location.path('/room');
     });
 
   };
+
+  $scope.isLoggedIn = function(){
+    var token = window.localStorage.getItem('EQUIP_TOKEN')
+    if(token){
+      $location.path('/room')
+    }
+  }
 
   $scope.redirectLogin = function () {
     $location.path('/login');
