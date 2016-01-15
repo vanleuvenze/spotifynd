@@ -13,23 +13,21 @@ module.exports = function(app, express) {
   app.post('/api/trips', controller.createTrip);
   app.get('/api/trips/:id', controller.accessTrip);
   app.get('/api/trips', controller.getAllTrips);
-
-
-  //get this route working so that we can find all trips associated with one user.
-  app.get('/api/user/trips/*', userController.findAllUserTrips);
+  
+  app.put('/api/user/:id', userController.updateUserTrips);
+  app.get('/api/user/:id', userController.getUser);
 
  //###### Live but not used in production############
-  app.get('/api/user/*', userController.findUser);
-  app.put('/api/user/*', userController.addTrips);
-
+  // app.get('/api/user/*', userController.findUser);
+  // app.put('/api/user/*', userController.addTrips);
   function restrict(req, res, next) { 
     if (req.session.user) {
       next();
     } else {                  
       req.session.error = 'Access denied!';
       res.redirect('/api/login');
-    }                    
-  }    
+    }
+  }
 
 
   //############Pending Routes#####################

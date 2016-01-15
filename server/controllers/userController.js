@@ -10,6 +10,7 @@ var jwt = require('jwt-simple');
 
 var findUser = Q.nbind(User.findOne, User);
 var createUser = Q.nbind(User.create, User);
+// var findOneAndUpdate = Q.nbind(User.findOneAndUpdate, User);
 
 module.exports = {
   
@@ -46,35 +47,6 @@ module.exports = {
       .fail(function (error) {
         next(error);
       });
-
-
-    // User.find({username: username}, function(err, success){
-    //   if(err){
-    //     console.log("hit err", err);
-    //   } else{
-    //     return success;
-    //   }
-    // })
-    // .then(function(success){
-    //   if(success.length !== 0){
-    //     console.log("sending back found user ", success)
-    //     res.send(success)
-    //   } else{
-    //     User.create({username: username, password: password}, function(err, results){
-    //       if (err) {
-    //         console.log("Error creating user", err);
-    //       } else {
-    //         console.log("Created user", results)
-    //         return results;
-    //       }
-    //     }) 
-    //     .then(function(result){
-    //       req.session.user = username;
-    //       console.log("User created by SignUp");
-    //       res.send(result);
-    //     })
-    //   }
-    // })
   },
 
   login : function(req, res, next) {
@@ -107,29 +79,13 @@ module.exports = {
       .fail(function (error) {
         next(error);
       });
-
-    // User.findOne({username:username},function(err, result){
-    //   if (err || !result) {
-    //     console.log("Error finding username verifyUser", err)
-    //     res.send(result);
-    //   } else {
-    //     console.log("Result of user find in login", result)
-    //     result.comparePassword(password, function(err, found) {
-    //       if(err) console.log("Error comparing password", err)
-    //       console.log("Compare Password", found)
-    //       if (found) {
-    //         req.session.regenerate(function(){
-    //         req.session.user = username;
-    //         res.send(found);
-    //         });
-    //       } else {
-    //         res.send(found);
-    //       }
-    //     });
-
-    //   }
-    // });
   },
+
+  logout : function(req, res, next) {
+    req.logout();
+    res.redirect('/api/login');
+  },
+
   findUser: function(req, res, next) {
     var username = req.url.split('/')[3]
     User.findOne({username:username},function(err, result){
@@ -174,8 +130,28 @@ module.exports = {
     });
   },
 
-  // findOneUserTrip): function(req, res, next) {
-  // },
+  updateUserTrips: function (req, res, next) {
+    var trips = req.body.trips;
+    var id = req.params.id;
+    var updates = { $set: {trips: trips} }
+    User.findOneAndUpdate({_id: id}, updates, function (err) {
+      if (err) {
+        res.sendStatus(400);
+      }
+      res.sendStatus(200);
+    });
+  },
+  getUser: function (req, res, next) {
+    var id = req.params.id;
+    findUser({_id: id})
+      .then(function (user) {
+        res.status(200).send(user);
+      })
+      .catch(function (err) {
+        res.sendStatus(400)
+      })
+
+  },
 
   addTrips : function(req, res, next) {
     var userId = req.url.split('/')[3];
@@ -197,13 +173,9 @@ module.exports = {
         });       
       }
     });
-  },
-
-
-  logout : function(req, res, next) {
-    req.logout();
-    res.redirect('/api/login');
   }
 };
+
+
 
      

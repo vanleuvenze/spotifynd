@@ -6,9 +6,7 @@ var SALT_WORK_FACTOR = 10;
 var UserSchema = mongoose.Schema({
     username:   String,
     password:  String,
-    trips: [{ type: mongoose.Schema.ObjectId,
-    ref: 'Trip'
-    }],
+    trips: [],
     salt: String
 });
 
