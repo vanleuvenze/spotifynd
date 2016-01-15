@@ -114,7 +114,7 @@ angular.module('app.services',[])
   data.getUser = function(id, callback){
     return $http.get('/api/user/' + id)
     .then(function(user){
-      callback(user)
+      return user
     })
   }
 

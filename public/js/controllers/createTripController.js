@@ -12,21 +12,12 @@ angular.module('app.create', ['app.services','firebase'])
   $scope.userInfo = {};
   $scope.formCompleted = false;
   $scope.topLevelCompleted = false;
-  $scope.trips = [
-    { _id: "3457034734534598",
-     room: "-K85jE1W6AzhQyah2c9H",
-     name: "BOONE Party" },
-         { _id: "3457034734534598",
-     room: "-K85jE1W6AzhQyah2c9H",
-     name: "BAKERSFIELD Party" },
-         { _id: "3457034734534598",
-     room: "-K85jE1W6AzhQyah2c9H",
-     name: "San Francisco" }
-  ]
+  $scope.trips = [];
+  
   $scope.getUser = function(id){
     ActivitiesData.getUser(id)
       .then(function(user){
-        $scope.userInfo = user
+        $scope.user = user
         $scope.trips = user.trips
       })
   }
