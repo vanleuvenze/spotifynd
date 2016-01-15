@@ -1,9 +1,13 @@
-<div layout="column" flex>
+<div layout="column" ng-init="getUser(userId)"flex>
+<!-- toolbar -->
   <md-toolbar>
     <div class="md-toolbar-tools">
       <span>Spotifynd</span>
       <!-- fill up the space between left and right area -->
       <span flex></span>
+      <md-button>
+        {{user.username}}
+      </md-button>
       <md-button>
         Friends
       </md-button>
@@ -13,6 +17,8 @@
     </div>
   </md-toolbar>
 </div>
+<!-- toolbar -->
+<!-- when first brought to page will see these divs -->
 <div layout="row" ng-show="!topLevelCompleted">
   <md-card flex>
     <md-card-content>
@@ -25,13 +31,14 @@
     <md-card ng-repeat="trip in trips" flex>
       <md-card-content>
         <div class="row">
-            <p><strong>{{trip.name}}</strong></p>
+            <p><strong>{{trip.tripName}}</strong></p>
             <p ng-click="roomId = trip.room; getRoom(roomId)">{{trip.room}}</p>
         </div>
       </md-card-content>
     </md-card>
   </md-card>
   </div>
+  <!-- once you decide what you want to do those divs will disappear and these will appear with your room data -->
   <div layout="column">
   <md-card layout='row' ng-show="!!topLevelCompleted" flex>
     <md-card-content>
@@ -51,20 +58,17 @@
         <p></p>
         <p></p>
         <form class='messageInput' ng-submit="addMessage(); message = '';" >
-          <md-input-container md-no-float='true'>
-            <input type='text' ng-model='username' placeholder='name'>
-          </md-input-container>
           <md-input-container >
             <input type='text' ng-model='message' placeholder='message'>
-            <input type="submit" style="position: absolute; left: -9999px"/>
           </md-input-container>
+            <input type="submit" style="position: absolute; left: -9999px"/>
         </form>
       </md-card-footer>
       </md-card-content>
     </md-card>
     <md-card class='messageCard' flex>
       <md-card-header>
-        <h4>Your Trip:</h4><md-button ng-show="!!formCompleted" ng-click='saveItinerary()' class="md-raised">SAVE TRIP</md-button>
+        <h4>Your Trip:</h4><md-button ng-show="!!formCompleted" ng-click="addToUserRooms()" class="md-raised">SAVE THIS TRIP</md-button>
       </md-card-header>
       <md-card-content class='messageCardDiv'>
         <div ng-show="!formCompleted">
@@ -87,7 +91,7 @@
               <img class="addActivityImage" src="{{activity.photo}}" alt="">
               <p><strong>{{activity.name}}</strong></p>
               <p>{{activity.address.split(',')[0]}}</p>
-              <p>{{activity.category}}</p>
+<!--               <p>{{activity.category}}</p> -->
             </div>    
           </md-card>
         </div>

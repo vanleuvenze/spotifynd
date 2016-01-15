@@ -8,19 +8,26 @@ angular.module('app.create', ['app.services','firebase'])
   // $scope.formCompleted is a variable to determine if the form is completed
   // if it's false, the form with show
   // if true, the form will hide and the right side of page will populate
+  $scope.userId = $window.localStorage.getItem('EQUIP_TOKEN')
+  $scope.userInfo = {};
   $scope.formCompleted = false;
   $scope.topLevelCompleted = false;
-  $scope.trips = [
-    { _id: "3457034734534598",
-     room: "-K81Dja_qE5iLwjtJ16e",
-     name: "BOONE Party" },
-         { _id: "3457034734534598",
-     room: "-K81Dja_qE5iLwjtJ16e",
-     name: "BAKERSFIELD Party" },
-         { _id: "3457034734534598",
-     room: "-K81Dja_qE5iLwjtJ16e",
-     name: "San Francisco" }
-  ]
+  $scope.trips = [];
+  
+  $scope.getUser = function(id){
+    ActivitiesData.getUser(id)
+      .then(function(user){
+        $scope.userInfo = user
+        $scope.trips = user.trips
+      })
+  }
+
+  $scope.addToUserRooms = function(){
+
+    $scope.trips.push({room: $scope.roomId, tripName: $scope.itineraryName})
+    var userTrips = {trips: $scope.trips}
+    ActivitiesData.updateUser($scope.userId, userTrips)
+  }
    // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
     // 2. trigger the search
@@ -118,7 +125,8 @@ angular.module('app.create', ['app.services','firebase'])
   }
 
   $scope.addMessage = function(message){
-    $scope.messages.$add({user: $scope.username, message: $scope.message});
+    console.log($scope.userInfo.username);
+    $scope.messages.$add({user: $scope.userInfo.username, message: $scope.message});
   }
 
   $scope.logOut = function(){
