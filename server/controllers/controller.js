@@ -21,7 +21,9 @@ var filterTripData = function(responseObj) {
         category: item.venue.categories[0].name,
         rating: item.venue.rating,
         photo: photoURL.prefix + '300x300' + photoURL.suffix,
-        url: item.venue.url
+        url: item.venue.url,
+        lat: location.lat,
+        lng: location.lng
       };
       totalData.push(tripItem); 
       return totalData;
@@ -62,7 +64,6 @@ module.exports = {
 
   searchStoredData: function(req, res, next) {
     var city = parseCityName(decodeURI(req.url.split('/')[2]));
-    console.log(city);
     TripItems.find({ city: city }, function(err, list) {
       if (list.length < 1) {
         // if (list.length < 1) {
