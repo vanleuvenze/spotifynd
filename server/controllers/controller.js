@@ -11,7 +11,7 @@ var filterTripData = function(responseObj) {
   if (responseObj) {
     return responseObj.reduce(function(totalData, item) { 
       var location = item.venue.location;
-      var photoURL = item.venue.featuredPhotos.items[0];
+      var photoURL = item.venue.featuredPhotos === undefined ? 'http://pleper.com/html/assets/img/no-image-found.jpg' : item.venue.featuredPhotos.items[0];
       var notes = item.tips === undefined ? '' : item.tips[0].text; 
       var tripItem = {
         name: item.venue.name,
