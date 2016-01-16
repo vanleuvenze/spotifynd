@@ -6,8 +6,7 @@ var tripsSchema = mongoose.Schema({
   image: String,
   //keyword: drinking, bars
   //users
-  activities : [{ type: mongoose.Schema.ObjectId,
-    ref: 'tripItem' }]
+  activities : Array
 });
 
 var Trip = mongoose.model('Trip', tripsSchema);

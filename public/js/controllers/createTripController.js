@@ -33,6 +33,31 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   }
 
   $scope.addToUserRooms = function(){
+
+    var activities = $scope.itinerary.map(function (activity) {
+      return {
+        address: activity.address,
+        city: activity.city,
+        lat: activity.lat,
+        lng: activity.lng,
+        rating: activity.rating,
+        photo: activity.photo,
+        url: activity.url
+      }
+    })
+
+
+     var tripObj = {
+      name: $scope.itineraryName,
+      city: $scope.city,
+      state: $scope.state,
+      activities: activities,
+      image: $scope.itineraryImage
+      };
+      console.log(tripObj)
+      ActivitiesData.createTrip(tripObj);
+
+  
     $scope.buttonPressed = true;
     $scope.trips.push({room: $scope.roomId, tripName: $scope.itineraryName})
     var userTrips = {trips: $scope.trips}
@@ -172,15 +197,17 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   // see the documentation on services.js for more information.
   $scope.saveItinerary = function () {
     // POST request to /trips with $scope.itinerary 
-    console.log("ACTIVITY:", activityIds);
+
     var tripObj = {
       name: $scope.itineraryName,
       city: $scope.city,
       state: $scope.state,
-      activities: $scope.itinerery,
+      activities: $scope.itinerary,
       image: $scope.itineraryImage
     };
-    var trip = JSON.stringify(tripObj);
+
+    console.log(tripObj, $scope.itinerary);
+
     ActivitiesData.createTrip(trip);
   };
   
