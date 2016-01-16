@@ -34,11 +34,8 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   $scope.options = {scrollwheel: false};
   $scope.markers = [];
 
-  $scope.$watchCollection('itinerary', function(newIt, oldIt) {
-    if (newIt.length !== oldIt) {
-      console.log("here ......................");
-      //console.log($scope.markers);
-    }
+  $scope.$watchCollection('markers', function(newIt, oldIt) {
+
   });
 
   $scope.onClick = function(marker, eventName, model) {
@@ -104,15 +101,11 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
       }
       str+= sub[sub.length-1]+','+'+';
     }
-    //console.log(str);
+
     str+=arr[arr.length-1].slice(0,3)+"&sensor=false";
     console.log(str);
     $http.get(str)
     .then(function(results){
-      // server calls a get request to the foursquare api
-      // posts it to our database
-      // gets data back out of our database and returns it
-      //address: "59th St to 110th St, New York, NY - US"
       var data = results.data.results[0].geometry.location;
       var marker = {
         id: $scope.markers.length,
@@ -120,7 +113,10 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
         longitude: data.lng,
         title: activity.name + "\n" + activity.url,
         show: false,
-        templateUrl: activity.url,
+        templateUrl: 'templates/info.html',
+        templateParameter: {
+          url: activity.url
+        },
         options: {
           labelContent: activity.name,
           labelAnchor: "100 0",
@@ -134,7 +130,7 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
       
       $scope.map = {center: {latitude: data.lat, longitude: data.lng }, zoom: 14 };
       $scope.markers.push(marker);
-      $scope.$digest();
+      //$scope.$digest();
 
     })
     .catch(function(err){
@@ -146,12 +142,12 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     var index = $scope.itinerary.indexOf(this.activity);
     $scope.itinerary.$remove(index);
     for (var i=0; i<$scope.markers.length; i++) {
-      if ($scope.markers[i].title === this.activity.name) {
+      if ($scope.markers[i].title === this.activity.name + "\n" + this.activity.url) {
         $scope.markers.splice(i, 1);
         break;
       }
     }
-    $scope.$digest();
+    //$scope.$digest();
 
   };
 
