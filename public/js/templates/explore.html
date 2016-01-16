@@ -1,40 +1,33 @@
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <span>Spotifynd</span>
-      <span flex></span>
-      <md-button ng-click="location.path('/login')">
-        Sign Up
-      </md-button>
-      <md-button ng-click="location.path('/room')">
-        Create Trip
-      </md-button>
-    </div>
-  </md-toolbar>
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <span>Spotifynd</span>
+    <span flex></span>
+    <md-button ng-click="redirectToLogin()">
+      Sign Up
+    </md-button>
+    <md-button ng-click="redirectToRoom()">
+      Create Trip
+    </md-button>
+  </div>
+</md-toolbar>
 
-
-<!-- <div>sup</div>
-<div><a href='#/room'>sup </a></div> -->
-
-    <md-card class='explore' flex>
-      <md-card-header>
-        <h5>Activities:</h5>
-      </md-card-header>
-      <md-card-content class='messageCardDiv'>
-        <div layout="column">
-        <md-card flex>
-          <md-card-content>
-          <div class="row" ng-click="addToTrip()">
-              <img class="addActivityImage" src="{{activity.photo}}" alt="">
-              <p><strong>{{activity.name}}</strong></p>
-              <p>{{activity.address.split(',')[0]}}</p>
-              <p>{{activity.category}}</p>
-              <p>{{activity.rating}}/10</p>
-              <a href="{{activity.url}}" target="_blank">Website</a>
+<md-card class='explore' flex>
+  <md-card-content class='messageCardDiv'>
+    <div layout="column"  >
+      <md-card flex ng-repeat='trip in trips'>
+        <md-card-content>
+          <div class="row" >
+            <img class="addActivityImage" src="{{trip.image}}" alt="">
+            <p><strong>{{trip.name}}</strong></p>
+            <p>{{trip.destination.join(', ')}}</p>
+            <a href="{{trip.url}}" target="_blank">Website</a>
           </div>
-          </md-card-content>
-          </md-card>
-        </div>
-      </md-card-content>
-  </md-card>
+        </md-card-content>
+      </md-card>
+    </div>
+  </md-card-content>
+</md-card>
+
+
 
 

@@ -128,7 +128,6 @@ module.exports = {
   // Route : /trips
 
   createTrip: function(req, res, next) {
-    console.log('IN CREATE TRIP CONTROLLER')
     console.log(req.body);
     var playlist = {
       name: req.body.name,

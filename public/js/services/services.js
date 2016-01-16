@@ -49,7 +49,8 @@ angular.module('app.services',[])
   data.getTrips = function(){
     return $http.get('/api/trips')
     .then(function(results){
-      return results;
+      console.log(results.data);
+      return results.data;
     })
     .catch(function(err){
       console.log("Error Getting User Trip Data: ", err)
