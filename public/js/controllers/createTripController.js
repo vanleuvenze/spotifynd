@@ -41,6 +41,11 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     }
   });
 
+  $scope.onClick = function(marker, eventName, model) {
+      console.log("Clicked!");
+      model.show = !model.show;
+  };
+
    // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
     // 2. trigger the search
@@ -83,9 +88,15 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     $scope.itinerary.$add(this.activity);
 
     var activity = this.activity;
-    var str = 'http://maps.google.com/maps/api/geocode/json?address=';
+    $scope.createMarker(activity);
+  };
 
-    var arr = this.activity.address.split(',');
+  // <h4>$scope.removeFromTrip</h4>
+  // Is a function that removes an item from the users itinerary
+  $scope.createMarker = function (activity) {
+    var str = 'http://maps.google.com/maps/api/geocode/json?address=';
+    console.log(activity);
+    var arr = activity.address.split(',');
     for (var i=0; i<arr.length-1; i++) {
       var sub = arr[i].trim().split(' ');
       for (var j=0; j<sub.length-1; j++) {
@@ -107,7 +118,9 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
         id: $scope.markers.length,
         latitude: data.lat,
         longitude: data.lng,
-        title: activity.name,
+        title: activity.name + "\n" + activity.url,
+        show: false,
+        templateUrl: activity.url,
         options: {
           labelContent: activity.name,
           labelAnchor: "100 0",
@@ -127,10 +140,8 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     .catch(function(err){
       console.log("Error Getting Individual Trip Data: ", err)
     });
-  };
+  }
 
-  // <h4>$scope.removeFromTrip</h4>
-  // Is a function that removes an item from the users itinerary
   $scope.removeFromTrip = function () {
     var index = $scope.itinerary.indexOf(this.activity);
     $scope.itinerary.$remove(index);
@@ -180,6 +191,7 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     $scope.roomId = id
     var room = Fire.getRoom(id);
     var settings = room.child('/settings/location').on('value', function (snap) {
+    var length = 0;
     var location = snap.val();
       ActivitiesData.getActivities(location)
         .then(function (data) {
@@ -188,6 +200,20 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     })
     $scope.messages = Fire.addMessage($scope.roomId)
     $scope.itinerary = Fire.addToPlaylist($scope.roomId);
+    console.log($scope.itinerary[1]);
+    $scope.itinerary.$loaded()
+      .then(function (itinerary) {
+        if (itinerary.length>0) {
+          for (var i=0; i<itinerary.length; i++) {
+            var act = itinerary[i];
+            $scope.createMarker(act);
+          }
+        }
+      })
+      .catch(function (err) {
+
+    });
+
     $scope.topLevelCompleted = true;
     $scope.formCompleted = true;
   }

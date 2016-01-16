@@ -107,7 +107,7 @@
         <div layout="column">
         <md-card ng-repeat="activity in activities | orderBy:'-rating'" flex>
           <md-card-content>
-          <div class="row" ng-click="addToTrip()">
+          <div class="row" ng-click="addToTrip(); mapClass='showMapClass'">
               <img class="addActivityImage" src="{{activity.photo}}" alt="">
               <p><strong>{{activity.name}}</strong></p>
               <p>{{activity.address.split(',')[0]}}</p>
@@ -120,24 +120,23 @@
         </div>
       </md-card-content>
   </div></md-card>
-    <md-card class='mapCard' flex>
-      <md-card-header>
-        <h5>map:</h5>
-      </md-card-header>
-      <md-card-content class='mapCardDiv'>
-        <div layout="column">
-        <md-card flex>
+      <md-card class='mapCard' ng-if="markers.length>0" flex>
+        <md-card-content class='mapCardDiv'>
+          <div layout="column">
+          <md-card flex>
           <md-card-content>
-
-          <div id="map_canvas">
+            <div id="map_canvas">
               <ui-gmap-google-map center="map.center" draggable="true" zoom="map.zoom" options="options" >
-              <ui-gmap-markers models="markers" coords="'self'" icon="'icon'">
-        </ui-gmap-markers>
+              <ui-gmap-markers models="markers" coords="'self'" icon="'icon'" click="onClick">
+                <ui-gmap-windows show="show" templateUrl='templateUrl'>
+                  <div ng-non-bindable>{{title}}</div>
+                </ui-gmap-windows>
+              </ui-gmap-markers>
               </ui-gmap-google-map>
-          </div>
+            </div>
           </md-card-content>
           </md-card>
-        </div>
-      </md-card-content>
-  </div></md-card>
-  </div></div>
+          </div>
+        </md-card-content>
+      </md-card>
+</div></div>
