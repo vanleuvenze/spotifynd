@@ -108,6 +108,11 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
         latitude: data.lat,
         longitude: data.lng,
         title: activity.name,
+        options: {
+          labelContent: activity.name,
+          labelAnchor: "100 0",
+          labelClass: "marker-labels"
+        },
         events: {
                 click: function (marker, eventName, args) {
                 }
