@@ -102,9 +102,8 @@ module.exports = {
         res.status(400).send(err);
       }
     });
-  }, 
-
-
+  },
+  
   //<h4>  saveCityData </h4> 
   // Adds the searched city to the database
   // Model: TripItems
