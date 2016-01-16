@@ -26,6 +26,10 @@ body {
   width: 50px;
   float: left;
 }
+.addActivityImage.Big {
+  height: 150px;
+  width: 150px;
+}
 li.itineraies-li {
   list-style: none;
   border: 1px solid black;
