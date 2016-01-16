@@ -117,4 +117,25 @@
           </md-card>
         </div>
       </md-card-content>
-  </div></md-card></div></div>
+  </div></md-card>
+    <md-card class='mapCard' flex>
+      <md-card-header>
+        <h5>map:</h5>
+      </md-card-header>
+      <md-card-content class='mapCardDiv'>
+        <div layout="column">
+        <md-card flex>
+          <md-card-content>
+
+          <div id="map_canvas">
+              <ui-gmap-google-map center="map.center" zoom="map.zoom" options="options">
+              <ui-gmap-marker ng-repeat="marker in markers"coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+              </ui-gmap-marker>
+              </ui-gmap-google-map>
+          </div>
+          </md-card-content>
+          </md-card>
+        </div>
+      </md-card-content>
+  </div></md-card>
+  </div></div>
