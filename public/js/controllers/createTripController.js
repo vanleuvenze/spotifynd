@@ -49,6 +49,7 @@ angular.module('app.create', ['app.services','firebase'])
 
       ActivitiesData.getActivities(cityUrl)
         .then(function (data) {
+          console.log('activities', data);
           $scope.activities = data.data;
         })
     }

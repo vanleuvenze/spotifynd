@@ -73,6 +73,7 @@
       <md-card-content class='messageCardDiv'>
         <div ng-show="!formCompleted">
           <form ng-submit="startItinerary();">
+              <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
             <md-input-container md-no-float='true'>
               <input type='text' ng-model='itineraryName' placeholder='trip name'>
             </md-input-container>
@@ -82,6 +83,7 @@
             <md-input-container md-no-float='true'>
               <input type='text' ng-model='state' placeholder='State'>
             </md-input-container>
+
             <md-button type="submit">Get my Trip!</md-button>
           </form>
         </div>
