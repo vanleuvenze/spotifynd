@@ -14,6 +14,12 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   $scope.topLevelCompleted = false;
 
   $scope.trips = [];
+
+
+  //redirect if user isn't validated
+  if (!window.localStorage.EQUIP_TOKEN) {
+    $location.path('#/signin');
+  }
   
   $scope.getUser = function(id){
     ActivitiesData.getUser(id)
@@ -106,6 +112,7 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     console.log(str);
     $http.get(str)
     .then(function(results){
+
       var data = results.data.results[0].geometry.location;
       var marker = {
         id: $scope.markers.length,
@@ -157,15 +164,12 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   // see the documentation on services.js for more information.
   $scope.saveItinerary = function () {
     // POST request to /trips with $scope.itinerary 
-    var activityIds = $scope.itinerary.map(function (activity) {
-      return activity._id;
-    });
     console.log("ACTIVITY:", activityIds);
     var tripObj = {
       name: $scope.itineraryName,
       city: $scope.city,
       state: $scope.state,
-      activities: activityIds,
+      activities: $scope.itinerery,
       image: $scope.itineraryImage
     };
     var trip = JSON.stringify(tripObj);
