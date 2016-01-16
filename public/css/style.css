@@ -226,3 +226,5 @@ body, html {
   position: absolute; 
   bottom: 0;
 }
+
+.angular-google-map-container { height: 400px; }

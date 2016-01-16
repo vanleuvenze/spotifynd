@@ -30,15 +30,14 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     ActivitiesData.updateUser($scope.userId, userTrips)
   }
 
-  $scope.map = {center: {latitude: 40.1451, longitude: -99.6680 }, zoom: 14 };
+  $scope.map = {center: {latitude: 40.1451, longitude: -99.6680 }, zoom: 14};
   $scope.options = {scrollwheel: false};
-
   $scope.markers = [];
 
   $scope.$watchCollection('itinerary', function(newIt, oldIt) {
     if (newIt.length !== oldIt) {
       console.log("here ......................");
-      console.log($scope.markers);
+      //console.log($scope.markers);
     }
   });
 
@@ -82,10 +81,9 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     }
     $scope.itinerary.$add(this.activity);
 
-    console.log(this.activity);
+    var activity = this.activity;
     var str = 'http://maps.google.com/maps/api/geocode/json?address=';
-    //var activity = this.activity.address.replace(/\s+/, '');
-    //console.log(activity);
+
     var arr = this.activity.address.split(',');
     for (var i=0; i<arr.length-1; i++) {
       var sub = arr[i].trim().split(' ');
@@ -104,18 +102,20 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
       // gets data back out of our database and returns it
       //address: "59th St to 110th St, New York, NY - US"
       var data = results.data.results[0].geometry.location;
-      console.log('Trip Result for : ', results.data.results[0].geometry.location);
-      var mker = {
+      var marker = {
         id: $scope.markers.length,
-        coords: {
-          latitude: data.lat,
-          longitude: data.lng
-        },
-        options: { draggable: true }
+        latitude: data.lat,
+        longitude: data.lng,
+        title: activity.name,
+        events: {
+                click: function (marker, eventName, args) {
+                }
+              }
       };
+      
       $scope.map = {center: {latitude: data.lat, longitude: data.lng }, zoom: 14 };
-      $scope.markers.push(mker);
-      //$scope.$digest();
+      $scope.markers.push(marker);
+      $scope.$digest();
 
     })
     .catch(function(err){
@@ -128,6 +128,14 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   $scope.removeFromTrip = function () {
     var index = $scope.itinerary.indexOf(this.activity);
     $scope.itinerary.$remove(index);
+    for (var i=0; i<$scope.markers.length; i++) {
+      if ($scope.markers[i].title === this.activity.name) {
+        $scope.markers.splice(i, 1);
+        break;
+      }
+    }
+    $scope.$digest();
+
   };
 
   // <h4>$scope.saveItinerary</h4>
