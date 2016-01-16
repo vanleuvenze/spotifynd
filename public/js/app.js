@@ -6,7 +6,7 @@
 // app.services loads all factory/service functionality
 // app.mytrips loads myTrips controller
 // ngRoute is for angular routing
-angular.module('app', ['firebase', 'app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', ,'app.message', 'ngRoute', 'ngMaterial', 'ngAria','luegg.directives'])
+angular.module('app', ['firebase', 'app.auth', 'app.trip', 'app.landing', 'app.create', 'app.services', 'app.mytrips', ,'app.message', 'ngRoute', 'ngMaterial', 'ngAria','luegg.directives','uiGmapgoogle-maps'])
 
 .config(function ($routeProvider) {
   $routeProvider

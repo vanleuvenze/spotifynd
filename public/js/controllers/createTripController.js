@@ -1,6 +1,6 @@
 
 //  This controller applies to the createTrip.html
-angular.module('app.create', ['app.services','firebase'])
+angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
 .constant('FIREBASE_URI', "https://spotyfind.firebaseio.com/")
 //  Factory functions are loaded in in 'ActivitiesData' from 'app.services'
 .controller('CreateTripController', function ($scope, $http, ActivitiesData, Fire, FIREBASE_URI, $firebaseArray, $window, $location) {
@@ -12,6 +12,7 @@ angular.module('app.create', ['app.services','firebase'])
   $scope.userInfo = {};
   $scope.formCompleted = false;
   $scope.topLevelCompleted = false;
+
   $scope.trips = [];
   
   $scope.getUser = function(id){
@@ -28,6 +29,18 @@ angular.module('app.create', ['app.services','firebase'])
     var userTrips = {trips: $scope.trips}
     ActivitiesData.updateUser($scope.userId, userTrips)
   }
+
+  $scope.map = {center: {latitude: 40.1451, longitude: -99.6680 }, zoom: 14};
+  $scope.options = {scrollwheel: false};
+  $scope.markers = [];
+
+  $scope.$watchCollection('itinerary', function(newIt, oldIt) {
+    if (newIt.length !== oldIt) {
+      console.log("here ......................");
+      //console.log($scope.markers);
+    }
+  });
+
    // <h3>startItinerary is a function to: </h3>
     // 1. hide the form
     // 2. trigger the search
@@ -67,6 +80,47 @@ angular.module('app.create', ['app.services','firebase'])
       $scope.itineraryImage = this.activity.photo;
     }
     $scope.itinerary.$add(this.activity);
+
+    var activity = this.activity;
+    var str = 'http://maps.google.com/maps/api/geocode/json?address=';
+
+    var arr = this.activity.address.split(',');
+    for (var i=0; i<arr.length-1; i++) {
+      var sub = arr[i].trim().split(' ');
+      for (var j=0; j<sub.length-1; j++) {
+        str += sub[j] + '+'
+      }
+      str+= sub[sub.length-1]+','+'+';
+    }
+    //console.log(str);
+    str+=arr[arr.length-1].slice(0,3)+"&sensor=false";
+    console.log(str);
+    $http.get(str)
+    .then(function(results){
+      // server calls a get request to the foursquare api
+      // posts it to our database
+      // gets data back out of our database and returns it
+      //address: "59th St to 110th St, New York, NY - US"
+      var data = results.data.results[0].geometry.location;
+      var marker = {
+        id: $scope.markers.length,
+        latitude: data.lat,
+        longitude: data.lng,
+        title: activity.name,
+        events: {
+                click: function (marker, eventName, args) {
+                }
+              }
+      };
+      
+      $scope.map = {center: {latitude: data.lat, longitude: data.lng }, zoom: 14 };
+      $scope.markers.push(marker);
+      $scope.$digest();
+
+    })
+    .catch(function(err){
+      console.log("Error Getting Individual Trip Data: ", err)
+    });
   };
 
   // <h4>$scope.removeFromTrip</h4>
@@ -74,6 +128,14 @@ angular.module('app.create', ['app.services','firebase'])
   $scope.removeFromTrip = function () {
     var index = $scope.itinerary.indexOf(this.activity);
     $scope.itinerary.$remove(index);
+    for (var i=0; i<$scope.markers.length; i++) {
+      if ($scope.markers[i].title === this.activity.name) {
+        $scope.markers.splice(i, 1);
+        break;
+      }
+    }
+    $scope.$digest();
+
   };
 
   // <h4>$scope.saveItinerary</h4>
