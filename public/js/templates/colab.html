@@ -128,7 +128,7 @@
             <div id="map_canvas">
               <ui-gmap-google-map center="map.center" draggable="true" zoom="map.zoom" options="options" >
               <ui-gmap-markers models="markers" coords="'self'" icon="'icon'" click="onClick">
-                <ui-gmap-windows show="show" templateUrl='templateUrl'>
+                <ui-gmap-windows show="show" templateUrl='templateUrl' templateParameter = 'templateParameter'>
                   <div ng-non-bindable>{{title}}</div>
                 </ui-gmap-windows>
               </ui-gmap-markers>
