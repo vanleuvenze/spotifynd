@@ -3,10 +3,9 @@
   <md-toolbar>
     <div class="md-toolbar-tools">
       <span>Spotifynd</span>
-      <!-- fill up the space between left and right area -->
       <span flex></span>
-      <md-button>
-        {{user.username}}
+      <md-button ng-click="$location.path('/room')">
+        {{userInfo.username}}</a>
       </md-button>
       <md-button>
         Friends
@@ -31,8 +30,7 @@
     <md-card ng-repeat="trip in trips" flex>
       <md-card-content>
         <div class="row">
-            <p><strong>{{trip.tripName}}</strong></p>
-            <p ng-click="roomId = trip.room; getRoom(roomId)">{{trip.room}}</p>
+            <md-button ng-click="roomId = trip.room; getRoom(roomId);">Open</md-button><strong>{{trip.tripName}}</strong>
         </div>
       </md-card-content>
     </md-card>
@@ -68,7 +66,7 @@
     </md-card>
     <md-card class='messageCard' flex>
       <md-card-header>
-        <h4>Your Trip:</h4><md-button ng-show="!!formCompleted" ng-click="addToUserRooms()" class="md-raised">SAVE THIS TRIP</md-button>
+        <h4>Your Trip:</h4><div ng-show="!buttonPressed"><md-button ng-show="!!formCompleted" ng-click="addToUserRooms()" class="md-raised">SAVE THIS TRIP</md-button></div>
       </md-card-header>
       <md-card-content class='messageCardDiv'>
         <div ng-show="!formCompleted">
@@ -108,11 +106,11 @@
         <md-card ng-repeat="activity in activities | orderBy:'-rating'" flex>
           <md-card-content>
           <div class="row" ng-click="addToTrip(); mapClass='showMapClass'">
-              <img class="addActivityImage" src="{{activity.photo}}" alt="">
+              <img class="addActivityImage Big" src="{{activity.photo}}" alt="">
               <p><strong>{{activity.name}}</strong></p>
               <p>{{activity.address.split(',')[0]}}</p>
-              <p>{{activity.category}}</p>
-              <p>{{activity.rating}}/10</p>
+              <p><strong>Category:</strong> {{activity.category}}</p>
+              <p><strong>Rating:</strong> {{activity.rating}}/10</p>
               <a href="{{activity.url}}" target="_blank">Website</a>
           </div>
           </md-card-content>

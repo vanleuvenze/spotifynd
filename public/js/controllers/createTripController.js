@@ -12,9 +12,9 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   $scope.userInfo = {};
   $scope.formCompleted = false;
   $scope.topLevelCompleted = false;
+  $scope.buttonPressed = false;
 
   $scope.trips = [];
-  
   $scope.getUser = function(id){
     ActivitiesData.getUser(id)
       .then(function(user){
@@ -24,7 +24,7 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   }
 
   $scope.addToUserRooms = function(){
-
+    $scope.buttonPressed = true;
     $scope.trips.push({room: $scope.roomId, tripName: $scope.itineraryName})
     var userTrips = {trips: $scope.trips}
     ActivitiesData.updateUser($scope.userId, userTrips)
