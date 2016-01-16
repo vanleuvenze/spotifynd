@@ -23,10 +23,10 @@ angular.module('app.services',[])
 
   data.getActivities = function(city){
     //checks if the city has been searched before
-    if(data.searchedCity[city]){
-      //sends a callback with the cache data
-      return data.cityCache[city]
-    }
+    // if(data.searchedCity[city]){
+    //   //sends a callback with the cache data
+    //   return data.cityCache[city]
+    // }
     //call get request to our server, with the city
     return $http.get('/api/activities/' + city)
     .then(function(results){
@@ -105,6 +105,7 @@ angular.module('app.services',[])
   // retrieves an object containing all activities and data related
   // to the trip id
   data.getTripActivities = function(id, cb){
+    console.log(id, cb)
     return $http.get('/api/trips/' + id)
     .then(function(results){
       console.log('trip data: ', results)

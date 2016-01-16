@@ -8,23 +8,27 @@ var async = require('async');
 
 
 var filterTripData = function(responseObj) {
-  return responseObj.reduce(function(totalData, item) { 
-    var location = item.venue.location;
-    var photoURL = item.venue.featuredPhotos.items[0];
-    var notes = item.tips === undefined ? '' : item.tips[0].text; 
-    var tripItem = {
-      name: item.venue.name,
-      address: location.address + ', ' + location.city + ', ' + location.state + ' - ' + location.cc,
-      city: location.city,
-      notes: notes,
-      category: item.venue.categories[0].name,
-      rating: item.venue.rating,
-      photo: photoURL.prefix + '300x300' + photoURL.suffix,
-      url: item.venue.url
-    };
-    totalData.push(tripItem); 
-    return totalData;
-  }, []);
+  if (responseObj) {
+    return responseObj.reduce(function(totalData, item) { 
+      var location = item.venue.location;
+      var photoURL = item.venue.featuredPhotos.items[0];
+      var notes = item.tips === undefined ? '' : item.tips[0].text; 
+      var tripItem = {
+        name: item.venue.name,
+        address: location.address + ', ' + location.city + ', ' + location.state + ' - ' + location.cc,
+        city: location.city,
+        notes: notes,
+        category: item.venue.categories[0].name,
+        rating: item.venue.rating,
+        photo: photoURL.prefix + '300x300' + photoURL.suffix,
+        url: item.venue.url
+      };
+      totalData.push(tripItem); 
+      return totalData;
+    }, []);
+  } else {
+    console.log('no');
+  }
 };
 
 
