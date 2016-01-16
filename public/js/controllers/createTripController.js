@@ -35,18 +35,8 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   $scope.addToUserRooms = function(){
 
     var activities = $scope.itinerary.map(function (activity) {
-      return {
-        address: activity.address,
-        city: activity.city,
-        lat: activity.lat,
-        lng: activity.lng,
-        rating: activity.rating,
-        photo: activity.photo,
-        url: activity.url
-      }
+      return { id: activity.mongoId }
     })
-
-
      var tripObj = {
       name: $scope.itineraryName,
       city: $scope.city,
@@ -116,6 +106,7 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     if ($scope.itinerary.length === 0) {
       $scope.itineraryImage = this.activity.photo;
     }
+    this.activity.mongoId = this.activity._id;
     $scope.itinerary.$add(this.activity);
 
     var activity = this.activity;
