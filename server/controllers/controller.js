@@ -102,9 +102,8 @@ module.exports = {
         res.status(400).send(err);
       }
     });
-  }, 
-
-
+  },
+  
   //<h4>  saveCityData </h4> 
   // Adds the searched city to the database
   // Model: TripItems
@@ -129,6 +128,8 @@ module.exports = {
   // Route : /trips
 
   createTrip: function(req, res, next) {
+    console.log('IN CREATE TRIP CONTROLLER')
+    console.log(req.body);
     var playlist = {
       name: req.body.name,
       destination: [req.body.city, req.body.state],
@@ -137,7 +138,7 @@ module.exports = {
     };
     Trips.create(playlist, function(err, results) {
       if (err) {
-        console.log(err);
+        console.log('NOT POSTING TO DB', err);
       }
       res.json(results);
     });

@@ -15,6 +15,15 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   $scope.buttonPressed = false;
 
   $scope.trips = [];
+
+
+
+  //redirect if user isn't validated
+  if (!window.localStorage.EQUIP_TOKEN) {
+    $location.path('#/signin');
+  }
+  
+
   $scope.getUser = function(id){
     ActivitiesData.getUser(id)
       .then(function(user){
@@ -24,6 +33,31 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   }
 
   $scope.addToUserRooms = function(){
+
+    var activities = $scope.itinerary.map(function (activity) {
+      return {
+        address: activity.address,
+        city: activity.city,
+        lat: activity.lat,
+        lng: activity.lng,
+        rating: activity.rating,
+        photo: activity.photo,
+        url: activity.url
+      }
+    })
+
+
+     var tripObj = {
+      name: $scope.itineraryName,
+      city: $scope.city,
+      state: $scope.state,
+      activities: activities,
+      image: $scope.itineraryImage
+      };
+      console.log(tripObj)
+      ActivitiesData.createTrip(tripObj);
+
+  
     $scope.buttonPressed = true;
     $scope.trips.push({room: $scope.roomId, tripName: $scope.itineraryName})
     var userTrips = {trips: $scope.trips}
@@ -106,6 +140,12 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
     console.log(str);
     $http.get(str)
     .then(function(results){
+
+      // server calls a get request to the foursquare api
+      // posts it to our database
+      // gets data back out of our database and returns it
+      //address: "59th St to 110th St, New York, NY - US"
+
       var data = results.data.results[0].geometry.location;
       var marker = {
         id: $scope.markers.length,
@@ -157,18 +197,17 @@ angular.module('app.create', ['app.services','firebase', 'uiGmapgoogle-maps'])
   // see the documentation on services.js for more information.
   $scope.saveItinerary = function () {
     // POST request to /trips with $scope.itinerary 
-    var activityIds = $scope.itinerary.map(function (activity) {
-      return activity._id;
-    });
-    console.log("ACTIVITY:", activityIds);
+
     var tripObj = {
       name: $scope.itineraryName,
       city: $scope.city,
       state: $scope.state,
-      activities: activityIds,
+      activities: $scope.itinerary,
       image: $scope.itineraryImage
     };
-    var trip = JSON.stringify(tripObj);
+
+    console.log(tripObj, $scope.itinerary);
+
     ActivitiesData.createTrip(trip);
   };
   

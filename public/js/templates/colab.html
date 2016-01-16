@@ -118,11 +118,13 @@
         </div>
       </md-card-content>
   </div></md-card>
+
       <md-card class='mapCard' ng-if="markers.length>0" flex>
         <md-card-content class='mapCardDiv'>
           <div layout="column">
           <md-card flex>
-          <md-card-content>
+
+      <md-card-content>
             <div id="map_canvas">
               <ui-gmap-google-map center="map.center" draggable="true" zoom="map.zoom" options="options" >
               <ui-gmap-markers models="markers" coords="'self'" icon="'icon'" click="onClick">
@@ -134,6 +136,7 @@
             </div>
           </md-card-content>
           </md-card>
+
           </div>
         </md-card-content>
       </md-card>

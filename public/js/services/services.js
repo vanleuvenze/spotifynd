@@ -92,9 +92,8 @@ angular.module('app.services',[])
   data.createTrip = function(tripData){
     //tripData is a JSON object
     $http.post('/api/trips', tripData)
-    .then(function(){
-      console.log("Trip Created");
-      $location.path('/myTrips');
+    .then(function (data){
+      console.log("Trip Created", data);
     })
     .catch(function(err){
       console.log("Error Creating Trip: ", err);
